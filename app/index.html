@@ -23,7 +23,7 @@
         <li ng-class="{ active: $state.includes('about') }"><a ui-sref="about">About</a></li>
       </ul>
 
-      <button class="btn pull-right">Login</button>
+      <button class="btn pull-right" ng-click="Facebook.login()">Login</button>
       <!-- Here is a named ui-view. ui-views don't have to be named, but we'll be populate this
            on from various different child states and we want a name to help us target. -->
       <!--<p ui-view="hint" class="navbar-text pull-right"></p>-->
@@ -46,6 +46,13 @@
            display the full url for learning purposes-->
     </pre>
 
+  <div ng-show="Facebook.token">
+    <h4>Access Token:</h4>
+    <p ng-bind="Facebook.token.accessToken"></p>
+    <button class='btn btn-small' ng-click="Facebook.logout()">Logout</button>
+  </div>
+
+  <div id='fb-root'></div>
 
 
 
