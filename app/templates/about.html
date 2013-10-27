@@ -1,0 +1,31 @@
+<p class="lead">UI-Router Resources</p>
+<ul>
+  <li><a href="https://github.com/angular-ui/ui-router/tree/master/sample">Source for this Sample</a></li>
+  <li><a href="https://github.com/angular-ui/ui-router">Github Main Page</a></li>
+  <li><a href="https://github.com/angular-ui/ui-router#quick-start">Quick Start</a></li>
+  <li><a href="https://github.com/angular-ui/ui-router/wiki">In-Depth Guide</a></li>
+  <li><a href="https://github.com/angular-ui/ui-router/wiki/Quick-Reference">API Reference</a></li>
+</ul>
+
+
+
+
+<div ng-controller="DatepickerDemoCtrl">
+  <pre>Selected date is: <em>{{dt | date:'fullDate' }}</em></pre>
+
+  <div class="well well-small pull-left" ng-model="dt">
+    <datepicker min="minDate" show-weeks="showWeeks"></datepicker>
+  </div>
+
+  <div class="form-horizontal">
+    <input type="text" datepicker-popup="dd-MMMM-yyyy" ng-model="dt" is-open="opened" min="minDate" max="'2015-06-22'" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" />
+    <button class="btn" ng-click="open()"><i class="icon-calendar"></i></button>
+  </div>
+
+  <hr />
+  <button class="btn btn-small btn-inverse" ng-click="today()">Today</button>
+  <button class="btn btn-small btn-inverse" ng-click="dt = '2009-08-24'">2009-08-24</button>
+  <button class="btn btn-small btn-success" ng-click="toggleWeeks()" tooltip="For inline datepicker">Toggle Weeks</button>
+  <button class="btn btn-small btn-danger" ng-click="clear()">Clear</button>
+  <button class="btn btn-small" ng-click="toggleMin()" tooltip="After today restriction">Min date</button>
+</div>
