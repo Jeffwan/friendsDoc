@@ -2,7 +2,7 @@
 
 /* Controllers */
 
-angular.module('myApp.controllers', ['ui.bootstrap'])
+angular.module('myApp.controllers')
     .controller('DatepickerDemoCtrl', ['$scope','$timeout',function($scope, $timeout) {
         $scope.today = function() {
             $scope.dt = new Date();
@@ -39,7 +39,4 @@ angular.module('myApp.controllers', ['ui.bootstrap'])
             'starting-day': 1
         };
 
-        }])
-
-
-
+    }])
