@@ -1,0 +1,57 @@
+<div>
+  <form class="form-horizontal">
+    <div class="control-group">
+      <div class="controls">
+        <button class="btn" id="pull" ng-click="pullProfile()">Update Information</button>
+      </div>
+    </div>
+
+
+    <div class="control-group">
+      <label class="control-label" for="userID">UserID</label>
+      <div class="controls">
+        <input type="text" id="userID" ng-model="profile.id">
+      </div>
+    </div>
+
+    <div class="control-group">
+      <label class="control-label" for="name">Name</label>
+      <div class="controls">
+        <input type="text" id="name" ng-model="profile.name">
+      </div>
+    </div>
+
+    <div class="control-group">
+      <label class="control-label" for="gender">Genber</label>
+      <div class="controls">
+        <input type="text" id="gender" ng-model="profile.gender">
+      </div>
+    </div>
+
+    <div class="control-group">
+      <label class="control-label" for="hometown">Hometown</label>
+      <div class="controls">
+        <input type="text" id="hometown" ng-model="profile.hometown.name">
+      </div>
+    </div>
+
+    <div class="control-group">
+      <label class="control-label" for="location">Location</label>
+      <div class="controls">
+        <input type="text" id="location" ng-model="profile.location.name">
+      </div>
+    </div>
+
+    <div class="control-group">
+      <label class="control-label" for="education">Education</label>
+      <div class="controls">
+        <input type="text" id="education" ng-model="profile.education[2].school.name">
+      </div>
+    </div>
+
+  </form>
+
+
+
+</div>
+

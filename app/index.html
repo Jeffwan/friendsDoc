@@ -21,6 +21,8 @@
              its descendant states are activated. -->
         <li ng-class="{ active: $state.includes('contacts') }"><a ui-sref="contacts.list">Contacts</a></li>
         <li ng-class="{ active: $state.includes('about') }"><a ui-sref="about">About</a></li>
+        <li ng-class="{ active: $state.includes('profile') }"><a ui-sref="profile">Profile</a></li>
+
       </ul>
 
       <button class="btn pull-right" ng-click="Facebook.login()">Login</button>
@@ -42,6 +44,7 @@
       $state = {{$state.current.name}}
       $stateParams = {{$stateParams}}
       $state full url = {{ $state.$current.url.source }}
+      profile.name = {{ profile.name }}
       <!-- $state.$current is not a public api, we are using it to
            display the full url for learning purposes-->
     </pre>
@@ -50,7 +53,7 @@
   <div id='fb-root'></div>
 
 
-  <div ng-controller="authenticationCtrl">
+  <div ng-controller="AuthenticationCtrl">
     <button class="btn" ng-click="login()">Login</button>
     <button class="btn" ng-click="getLoginStatus()">getLoginStatus</button>
     <button class="btn" ng-click="getMe()">getMe</button>
@@ -64,8 +67,6 @@
 
 
 </div>
-
-
 
 
 
@@ -87,9 +88,14 @@
   <script src="js/app.js"></script>
   <script src="js/routes.js"></script>
   <script src="js/services/services.js"></script>
-  <script src="js/controllers/controllers.js"></script>
-  <script src="js/controllers/authenticationCtrl.js"></script>
   <script src="js/services/authtication.js"></script>
+  <script src="js/services/facebookAPI.js"></script>
+  <script src="js/controllers/controllers.js"></script>
+  <script src="js/controllers/AuthenticationCtrl.js"></script>
+  <script src="js/controllers/CarouselDemoCtrl.js"></script>
+  <script src="js/controllers/DatepickerDemoCtrl.js"></script>
+
+  <!--<script src="js/services/facebookAPI.js"></script>-->
   <script src="js/filters.js"></script>
   <script src="js/directives.js"></script>
 </body>
