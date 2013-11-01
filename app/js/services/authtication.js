@@ -14,55 +14,46 @@
 
 // Demonstrate how to register services
 // In this case it is a simple value service.
-angular.module('myApp.services', ['facebook'])
+angular.module('myApp.services')
     // A RESTful factory for retreiving contacts from 'contacts.json'
     .factory('authentication', ['$rootScope','Facebook', function ($rootScope, Facebook) {
+        $rootScope.profile = {};
+
         function login () {
             Facebook.login(function(response) {
-                // Do something with response. Don't forget here you are on Facebook scope so use $scope.$apply
-                console.log(response);
-                $rootScope.FacebookData.token = response.authResponse;
-
+                if (response.status == 'connected') {
+                    $rootScope.logged = true;
+                    getMe();
+                }
             });
         };
 
         function logout() {
-            console.log("log out called?");
             Facebook.logout(function(response) {
                 // Do something with response. Don't forget here you are on Facebook scope so use $scope.$apply
                 $rootScope.$apply(function(){
-                    $rootScope.FacebookData.token =  null ;
-                    console.log($rootScope.FacebookData.token);
+                    $rootScope.logged = false;
+                    $rootScope.profile = {};
                 })
             });
         };
 
         function getLoginStatus() {
             Facebook.getLoginStatus(function(response) {
-                if(response.status == 'connected'){
-                    $rootScope.$apply(function() {
-                    console.log(response.status);
-                    });
-                } else {
-//                    $scope.$apply(function() {
-                    console.log(response.status);
-//                    });
-                }
-
+                return response;
             })
         };
 
         function getMe() {
             Facebook.api('/me', function(response) {
-                $rootScope.$apply(function() {
-                    // Here you could re-check for user status (just in case)
-                    $rootScope.FacebookData.myself = response;
+                $rootScope.$apply(function(){
                     console.log(response);
-                });
+                    $rootScope.profile = response;
+                    return response;
+                })
+
             });
         };
-
-
 
         return {
             login: login,
@@ -72,10 +63,5 @@ angular.module('myApp.services', ['facebook'])
         }
 
 
-
-
-
-
-
-
     }])
+
