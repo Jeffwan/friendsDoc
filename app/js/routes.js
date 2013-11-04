@@ -27,7 +27,6 @@ angular.module('myApp.routes', ['ui.router'])
             })
 
             .state('statics',{
-                abstract: true,
                 url: '/statics',
                 templateUrl: 'templates/statics.html',
                 controller: 'StaticsCtrl'
@@ -48,5 +47,11 @@ angular.module('myApp.routes', ['ui.router'])
     }])
 
     .controller('StaticsCtrl',['$scope', 'facebookAPI',function($scope,facebookAPI){
+
+        $scope.getFriends = function() {
+            $scope.friends = facebookAPI.getFriends();
+            console.log($scope.friends);
+        }
+
 
     }])
