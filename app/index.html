@@ -7,6 +7,9 @@
   <link rel="stylesheet" href="css/bootstrap/bootstrap-responsive.min.css"/>
   <link rel="stylesheet" href="css/app.css"/>
   <link rel="stylesheet" href="css/custom.css"/>
+  <link rel="stylesheet" href="css/carousel.css" >
+  <link rel="stylesheet" href="css/docs.css" >
+
 </head>
 <body>
 
@@ -14,25 +17,26 @@
     <div class="navbar-inner">
       <div class="container">
 
-      <ul class="nav">
-        <li><a class="brand" ui-sref="home">FriendsDoc</a></li>
-        <!-- Here you can see ui-sref in action again. Also notice the use of $state.includes, which
-             will set the links to 'active' if, for example on the first link, 'contacts' or any of
-             its descendant states are activated. -->
-        <li ng-class="{ active: $state.includes('contacts') }"><a ui-sref="contacts.list">Contacts</a></li>
-        <li ng-class="{ active: $state.includes('about') }"><a ui-sref="about">About</a></li>
-        <li ng-class="{ active: $state.includes('profile') }"><a ui-sref="profile">Profile</a></li>
-        <li ng-class="{ active: $state.includes('statics') }"><a ui-sref="statics">Statics</a></li>
+        <ul class="nav">
+          <li><a class="brand" ui-sref="home">FriendsDoc</a></li>
+          <!-- Here you can see ui-sref in action again. Also notice the use of $state.includes, which
+               will set the links to 'active' if, for example on the first link, 'contacts' or any of
+               its descendant states are activated. -->
+          <li ng-class="{ active: $state.includes('dashboard') }"><a ui-sref="dashboard">Dashboard</a></li>
+          <li ng-class="{ active: $state.includes('about') }"><a ui-sref="about">About</a></li>
+          <li ng-class="{ active: $state.includes('profile') }"><a ui-sref="profile">Profile</a></li>
+          <li ng-class="{ active: $state.includes('statics') }"><a ui-sref="statics">Statics</a></li>
+        </ul>
 
-      </ul>
-
-      <button class="btn pull-right" ng-click="Facebook.login()">Login</button>
-      <!-- Here is a named ui-view. ui-views don't have to be named, but we'll be populate this
-           on from various different child states and we want a name to help us target. -->
-      <!--<p ui-view="hint" class="navbar-text pull-right"></p>-->
+        <button class="btn pull-right" ng-click="Facebook.login()">Login</button>
+        <!-- Here is a named ui-view. ui-views don't have to be named, but we'll be populate this
+             on from various different child states and we want a name to help us target. -->
+        <!--<p ui-view="hint" class="navbar-text pull-right"></p>-->
       </div>
     </div>
   </div>
+
+
 
 
   <!-- Here is the main ui-view (unnamed) and will be populate by its immediate children's templates
@@ -53,23 +57,29 @@
 
   <div id='fb-root'></div>
 
-
   <div ng-controller="AuthenticationCtrl">
     <button class="btn" ng-click="login()">Login</button>
     <button class="btn" ng-click="getLoginStatus()">getLoginStatus</button>
     <button class="btn" ng-click="getMe()">getMe</button>
 
 
-  <div ng-show="FacebookData.token.accessToken">
-    <h4>Access Token:</h4>
-    <p>{{ FacebookData.token.accessToken}}</p>
-    <button class="btn" ng-click="logout()">Logout</button>
+    <div ng-show="authentication.accessToken">
+      <h4>Access Token:</h4>
+      <p>{{ authentication.accessToken}}</p>
+      <button class="btn" ng-click="logout()">Logout</button>
+    </div>
   </div>
 
+  <hr class="soften">
 
-</div>
+  <!-- Footer-->
 
-
+  <footer class="container">
+    <p class="pull-right"><a href="#">Back to top</a></p>
+    <p>&copy; 2013 Pittsburgh students &middot; <a href="#">Privacy</a> &middot; <a href="#">Terms</a></p>
+  </footer>
+  <!-- At the privacy link and terms we can have a page to declare our privacy agreements.-->
+  <!-- End of Footer-->
 
 
 
@@ -89,7 +99,7 @@
   <script src="js/app.js"></script>
   <script src="js/routes.js"></script>
   <script src="js/services/services.js"></script>
-  <script src="js/services/authtication.js"></script>
+  <script src="js/services/authentication.js"></script>
   <script src="js/services/facebookAPI.js"></script>
   <script src="js/controllers/controllers.js"></script>
   <script src="js/controllers/AuthenticationCtrl.js"></script>

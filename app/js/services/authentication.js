@@ -19,19 +19,26 @@ angular.module('myApp.services')
     .factory('authentication', ['$rootScope','$q','Facebook', function ($rootScope, $q, Facebook) {
         $rootScope.profile = {};
 
+        //declare facebook permissions in login process
+        var permissions ={
+            scope:'user_friends,read_stream'
+        }
+
         function login () {
             Facebook.login(function(response) {
                 if (response.status == 'connected') {
+                    $rootScope.authentication = response.authResponse;
                     $rootScope.logged = true;
                     return getMe();
                 }
-            });
+            }, permissions);
         };
 
         function logout() {
             Facebook.logout(function(response) {
                 // Do something with response. Don't forget here you are on Facebook scope so use $scope.$apply
                 $rootScope.$apply(function(){
+                    $rootScope.authentication = null;
                     $rootScope.logged = false;
                     $rootScope.profile = {};
                 })
@@ -51,10 +58,8 @@ angular.module('myApp.services')
             var deferred = $q.defer();
             Facebook.api('/me', function(response) {
                 $rootScope.$apply(function(){
-                    console.log(response);
                     $rootScope.profile = response;
                     deferred.resolve(response);
-
                 })
             });
             return deferred.promise;

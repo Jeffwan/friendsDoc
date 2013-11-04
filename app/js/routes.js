@@ -45,6 +45,11 @@ angular.module('myApp.routes', ['ui.router'])
                 templateUrl: 'templates/about.html'
             })
 
+            .state('dashboard', {
+                url: '/dashboard',
+                templateUrl: 'templates/dashboard.html'
+            })
+
     }])
 
 
@@ -55,7 +60,7 @@ angular.module('myApp.routes', ['ui.router'])
 
     }])
 
-    .controller('StaticsCtrl',['$scope', 'friendsList','statusList', function($scope,friendsList,statusList){
+    .controller('StaticsCtrl',['$scope', 'friendsList','statusList', function($scope, friendsList, statusList){
         $scope.friends = friendsList;
 
         $scope.statuses = statusList;

@@ -22,12 +22,12 @@ angular.module('myApp.services')
         };
 
         /**
-         * User_friends function
-         * @returns {Function|promise|promise|Function|Function|promise|Function|Function}
+         * Permission: user_friends function
+         *
          */
         function getFriends() {
             var deferred = $q.defer();
-            Facebook.api('.me?fields=friends.fields(gender,id,name)', function(response) {
+            Facebook.api('/me?fields=friends.fields(id,gender,name)', function(response) {
                 if(response.friends) {
                     deferred.resolve(response.friends.data);
                 } else {
@@ -39,14 +39,17 @@ angular.module('myApp.services')
         };
 
 
-
+        /**
+         * Permission: read_stream function
+         * /me/feed?fields=id,message,comments,likes&limit=25
+         */
         function getMyFeeds() {
             var  deferred = $q.defer();
 
-            Facebook.api('/me?fields=feed.limit(25).fields(id,message,comments,likes)',function(response) {
+            Facebook.api('/me/feed?fields=id,message,comments,likes&limit=25',function(response) {
                 console.log(response);
-                if(response.feed) {
-                    deferred.resolve(response.feed.data)
+                if(response.data) {
+                    deferred.resolve(response.data)
                 } else {
                     //error handling
                 }
