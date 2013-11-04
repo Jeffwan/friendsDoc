@@ -1,9 +1,14 @@
-<button class="btn" ng-click="getFriends()">getFriends</button>
+
 
 <ul ng-repeat='friend in friends'>
   <li> {{ friend.id}}</li>
   <li> {{ friend.name}}</li>
+  <li> {{ friend.gender}}</li>
 </ul>
 
-    {{friends[0].id}}
-    {{friends[0].name}}
+
+
+<ul ng-repeat="status in statuses">
+    <li> {{ status.message }} </li>
+    <li> {{ status.created_time }} </li>
+</ul>

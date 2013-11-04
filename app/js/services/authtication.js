@@ -16,14 +16,14 @@
 // In this case it is a simple value service.
 angular.module('myApp.services')
     // A RESTful factory for retreiving contacts from 'contacts.json'
-    .factory('authentication', ['$rootScope','Facebook', function ($rootScope, Facebook) {
+    .factory('authentication', ['$rootScope','$q','Facebook', function ($rootScope, $q, Facebook) {
         $rootScope.profile = {};
 
         function login () {
             Facebook.login(function(response) {
                 if (response.status == 'connected') {
                     $rootScope.logged = true;
-                    getMe();
+                    return getMe();
                 }
             });
         };
@@ -39,20 +39,25 @@ angular.module('myApp.services')
         };
 
         function getLoginStatus() {
+            var deferred = $q.defer();
             Facebook.getLoginStatus(function(response) {
-                return response;
+                deferred.resolve(response);
+            // return here or at last step
             })
+            return deferred.promise;
         };
 
         function getMe() {
+            var deferred = $q.defer();
             Facebook.api('/me', function(response) {
                 $rootScope.$apply(function(){
                     console.log(response);
                     $rootScope.profile = response;
-                    return response;
-                })
+                    deferred.resolve(response);
 
+                })
             });
+            return deferred.promise;
         };
 
         return {

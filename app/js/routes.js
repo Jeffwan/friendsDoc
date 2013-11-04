@@ -17,19 +17,27 @@ angular.module('myApp.routes', ['ui.router'])
             .state("profile", {
                 url:'/profile',
                 templateUrl:'templates/profile.html',
-//                resolve: {
-//                  me:['facebookAPI',function(facebook){
-//                      facebook.login();
-//                      return facebook.getMe();
-//                  }]
-//                },
+                resolve: {
+                  me:['authentication','facebookAPI',function(authentication,facebookAPI){
+                      authentication.login();
+                      return facebookAPI.getMe();
+                  }]
+                },
                 controller:'ProfileCtrl'
             })
 
             .state('statics',{
                 url: '/statics',
                 templateUrl: 'templates/statics.html',
-                controller: 'StaticsCtrl'
+                controller: 'StaticsCtrl',
+                resolve: {
+                    friendsList:['facebookAPI',function(facebookAPI) {
+                        return facebookAPI.getFriends();
+                    }],
+                    statusList:['facebookAPI',function(facebookAPI) {
+                        return facebookAPI.getMyFeeds();
+                    }]
+                }
             })
 
             .state('about', {
@@ -40,18 +48,15 @@ angular.module('myApp.routes', ['ui.router'])
     }])
 
 
-    .controller('ProfileCtrl',['$scope','authentication','facebookAPI', function($scope,authentication,facebookAPI){
+    .controller('ProfileCtrl',['$scope','authentication','me', function($scope,authentication,me){
         $scope.pullProfile = authentication.login;
-        console.log(facebookAPI.getMe());
+//        console.log(facebookAPI.getMe());
+        $scope.profile = me;
 
     }])
 
-    .controller('StaticsCtrl',['$scope', 'facebookAPI',function($scope,facebookAPI){
+    .controller('StaticsCtrl',['$scope', 'friendsList','statusList', function($scope,friendsList,statusList){
+        $scope.friends = friendsList;
 
-        $scope.getFriends = function() {
-            $scope.friends = facebookAPI.getFriends();
-            console.log($scope.friends);
-        }
-
-
+        $scope.statuses = statusList;
     }])
