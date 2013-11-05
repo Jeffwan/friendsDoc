@@ -26,6 +26,8 @@
           <li ng-class="{ active: $state.includes('about') }"><a ui-sref="about">About</a></li>
           <li ng-class="{ active: $state.includes('profile') }"><a ui-sref="profile">Profile</a></li>
           <li ng-class="{ active: $state.includes('statics') }"><a ui-sref="statics">Statics</a></li>
+          <li ng-class="{ active: $state.includes('care-me-most') }"><a ui-sref="care-me-most">CareUMost</a></li>
+
         </ul>
 
         <button class="btn pull-right" ng-click="Facebook.login()">Login</button>
@@ -35,8 +37,6 @@
       </div>
     </div>
   </div>
-
-
 
 
   <!-- Here is the main ui-view (unnamed) and will be populate by its immediate children's templates
