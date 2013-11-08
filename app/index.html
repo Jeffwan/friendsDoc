@@ -22,12 +22,19 @@
           <!-- Here you can see ui-sref in action again. Also notice the use of $state.includes, which
                will set the links to 'active' if, for example on the first link, 'contacts' or any of
                its descendant states are activated. -->
-          <li ng-class="{ active: $state.includes('dashboard') }"><a ui-sref="dashboard">Dashboard</a></li>
+
+            <li class="dropdown" ng-class="{ active: $state.includes('dashboard') }" ng-controller="DropdownCtrl">
+                <a class="dropdown-toggle" ui-sref="dashboard">Dashboard</a>
+                <ul class="dropdown-menu">
+                    <li ng-repeat="choice in items">
+                        <a ui-sref={{choice.url}}>{{choice.text}}</a>
+                    </li>
+                </ul>
+
+            </li>
+
+
           <li ng-class="{ active: $state.includes('about') }"><a ui-sref="about">About</a></li>
-          <li ng-class="{ active: $state.includes('profile') }"><a ui-sref="profile">Profile</a></li>
-          <li ng-class="{ active: $state.includes('statics') }"><a ui-sref="statics">Statics</a></li>
-          <li ng-class="{ active: $state.includes('care-me-most') }"><a ui-sref="care-me-most">CareUMost</a></li>
-          <li ng-class="{ active: $state.includes('narcissistic') }"><a ui-sref="narcissistic">Narcissistic</a></li>
 
         </ul>
 
@@ -106,6 +113,7 @@
   <script src="js/controllers/AuthenticationCtrl.js"></script>
   <script src="js/controllers/CarouselDemoCtrl.js"></script>
   <script src="js/controllers/DatepickerDemoCtrl.js"></script>
+  <script src="js/controllers/DropdownCtrl.js"></script>
 
   <!--<script src="js/services/facebookAPI.js"></script>-->
   <script src="js/filters.js"></script>
