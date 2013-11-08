@@ -49,10 +49,10 @@ angular.module('myApp.services')
         function getMyFeeds() {
             var  deferred = $q.defer();
 
-            Facebook.api('me/feed?fields=comments.fields(from,message),likes,id,message&limit=25&with=comments',function(response) {
+            Facebook.api('me/feed?fields=comments.fields(from,message),likes,id,message&limit=100&with=comments',function(response) {
                 console.log(response);
                 if(response) {
-                    deferred.resolve(response)
+                    deferred.resolve(response);
                 } else {
                     //error handling
                 }
@@ -60,7 +60,7 @@ angular.module('myApp.services')
             return deferred.promise;
         }
 
-        /**
+         /**
          * Permission: user_friends function
          *
          */
@@ -81,11 +81,17 @@ angular.module('myApp.services')
         };
 
 
+        /**
+         * Permission: friends_photos
+         *
+         *  bugs: someone like sheldon, i only get his id but not albums
+         */
         function getFriendsAlbums() {
             var deferred = $q.defer();
             Facebook.api('/me/friends?fields=albums.limit(5).fields(count,updated_time,name,type)', function(response) {
                 if(response.data) {
-                    deferred.resolve(response.friends);
+                    console.log(response);
+                    deferred.resolve(response);
                 } else {
                     //error handling
                 }

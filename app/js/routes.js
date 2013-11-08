@@ -84,8 +84,6 @@ angular.module('myApp.routes', ['ui.router'])
 
     .controller('StaticsCtrl', ['$scope', 'friendsList','sex', function($scope, friendsList, sex){
         $scope.friends = friendsList;
-
-
         $scope.male = 0
         $scope.female = 0;
         $scope.total = sex.data.length;
@@ -97,7 +95,6 @@ angular.module('myApp.routes', ['ui.router'])
                 $scope.female++;
             }
         }
-
     }])
 
     .controller('CareMeMost', ['$scope', 'feedsList', function($scope,feedsList){
@@ -107,30 +104,43 @@ angular.module('myApp.routes', ['ui.router'])
         for (var x in feedsList.data) {
             if (feedsList.data[x].comments) {
                 for (var i in feedsList.data[x].comments.data) {
-                    feedsList.data[x].comments.data[i].from.id;
+//                    console.log(feedsList.data[x].comments.data[i]);
+                    if ($scope.count[feedsList.data[x].comments.data[i].from.id]) {
+                        $scope.count[feedsList.data[x].comments.data[i].from.id] ++;
+                    } else {
+                        $scope.count[feedsList.data[x].comments.data[i].from.id] = 1;
+                    }
                 }
-
-                    feedsList.data[x].comments.data.from.id
             }
         }
 
-
+        console.log($scope.count);
     }])
 
 
+    /**
+     * if (friendsAlbums.data[x].albums)  -- this sets for Sheldon, I Can't get his data from API but website works
+     * if (friendsAlbums.data[x].albums.data[i]) -- this sets for Flynn? or the following one
+     */
+
     .controller('NarcissisticCtrl', ['$scope', 'friendsAlbums', function($scope, friendsAlbums) {
-        $scope.count = {}
+        $scope.count = {};
 
         for (var x in friendsAlbums.data) {
-            for (var i in friendsAlbums.data[x]) {
-                if (friendsAlbums.data[x].albums.data[i].name == "Profile Pictures") {
-                   // friendsAlbums.data[x].id --- friendsAlbums.data[x].albums.data[i].count;
+            if (friendsAlbums.data[x].albums) {
+                for (var i=0;  i<5 ; i++) {
+                    if (friendsAlbums.data[x].albums.data[i]) {
+//                        console.log(friendsAlbums.data[x].albums.data[i].name);
+                        if (friendsAlbums.data[x].albums.data[i].name == "Profile Pictures") {
+                            $scope.count[friendsAlbums.data[x].id] = friendsAlbums.data[x].albums.data[i].count;
+                        }
+                    }
                 }
             }
-
         }
 
+        // here we should handle the hash, sort it , get the first 5.
 
-
+        console.log($scope.count);
 
     }])

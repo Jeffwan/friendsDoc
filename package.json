@@ -1,7 +1,11 @@
 {
-  "name": "angualrjs-seed",
+  "name": "friendsDoc",
+  "engines": {
+      "node": "0.10.x",
+      "npm": "1.2.x"
+   },
   "description": "A starter project for angular js",
-  "devDependencies": {
+  "dependencies": {
         "phantomjs" : "*",
         "karma" : "*",
         "karma-junit-reporter" : "*",    
