@@ -8,8 +8,8 @@ angular.module('myApp.controllers')
         $scope.items = [
             {   text: 'CareMeMost',
                 url: 'care-me-most'},
-            {   text: 'Profile',
-                url: 'profile'},
+            {   text: 'MyNetwork',
+                url: 'networkmap'},
             {   text: 'Statics',
                 url: 'statics'},
             {   text: 'Narcissistic',

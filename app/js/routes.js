@@ -80,6 +80,16 @@ angular.module('myApp.routes', ['ui.router'])
                     }]
                 }
             })
+            .state('networkmap',{
+                url:'/networkmap',
+                templateUrl:'templates/networkmap.html',
+                controller:'NetworkmapCtrl',
+                resolve:{
+                    friendsList:['facebookAPI',function(facebookAPI) {
+                        return facebookAPI.getFriends();
+                    }]
+                }
+            })
 
     }])
 
@@ -173,4 +183,26 @@ angular.module('myApp.routes', ['ui.router'])
 
         console.log($scope.count);
 
+    }])
+
+    .controller('NetworkmapCtrl', ['$scope','friendsList', function($scope,friendsList){
+        $scope.count={};
+
+        for(var x in friendsList.data){
+            if(friendsList.data[x].location){
+                if($scope.count[friendsList.data[x].location.name]){
+                    $scope.count[friendsList.data[x].location.name]++;
+                }else {
+                    $scope.count[friendsList.data[x].location.name] = 1;
+                }
+            }else if(friendsList.data[x].hometown){
+                if($scope.count[friendsList.data[x].hometown.name]){
+                    $scope.count[friendsList.data[x].hometown.name]++;
+                }else {
+                    $scope.count[friendsList.data[x].hometown.name] = 1;
+                }
+            }
+
+        }
+        console.log($scope.count);
     }])

@@ -23,9 +23,12 @@
                will set the links to 'active' if, for example on the first link, 'contacts' or any of
                its descendant states are activated. -->
 
-            <li class="dropdown" ng-class="{ active: $state.includes('dashboard') }" ng-controller="DropdownCtrl">
-                <a class="dropdown-toggle" ui-sref="dashboard">Dashboard</a>
-                <ul class="dropdown-menu">
+            <li ng-class="{ active: $state.includes('dashboard') }">
+                <a ui-sref="dashboard">Dashboard
+                    <span class="dropdown dropdown-toggle"></span>
+                </a>
+
+                <ul class="dropdown-menu" ng-controller="DropdownCtrl">
                     <li ng-repeat="choice in items">
                         <a ui-sref={{choice.url}}>{{choice.text}}</a>
                     </li>
@@ -35,10 +38,23 @@
 
 
           <li ng-class="{ active: $state.includes('about') }"><a ui-sref="about">About</a></li>
-
         </ul>
 
-        <button class="btn pull-right" ng-click="Facebook.login()">Login</button>
+
+          <div class="btn-group pull-right" ng-controller="AuthenticationCtrl">
+              <button type="button" class="btn" ng-click="login()" ng-show="!authentication.accessToken">Login</button>
+              <button type="button" class="btn dropdown-toggle">
+                  <span class="caret"></span>
+              </button>
+              <ul class="dropdown-menu">
+                  <li><a ui-sref="profile">Profile</a></li>
+                  <li class="divider"></li>
+                  <li><a ng-click="logout()">Logout</a></li>
+              </ul>
+          </div>
+
+
+
         <!-- Here is a named ui-view. ui-views don't have to be named, but we'll be populate this
              on from various different child states and we want a name to help us target. -->
         <!--<p ui-view="hint" class="navbar-text pull-right"></p>-->

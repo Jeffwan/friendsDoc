@@ -21,7 +21,7 @@ angular.module('myApp.services')
 
         //declare facebook permissions in login process
         var permissions ={
-            scope:'user_friends, read_stream, export_stream, friends_photos'
+            scope:'user_friends, read_stream, export_stream, friends_photos, friends_hometown, friends_location'
         }
 
         function login () {
