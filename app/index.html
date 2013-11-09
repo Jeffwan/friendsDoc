@@ -23,12 +23,9 @@
                will set the links to 'active' if, for example on the first link, 'contacts' or any of
                its descendant states are activated. -->
 
-            <li ng-class="{ active: $state.includes('dashboard') }">
-                <a ui-sref="dashboard">Dashboard
-                    <span class="dropdown dropdown-toggle"></span>
-                </a>
-
-                <ul class="dropdown-menu" ng-controller="DropdownCtrl">
+            <li class="dropdown" ng-class="{ active: $state.includes('dashboard') }" ng-controller="DropdownCtrl">
+                <a class="dropdown-toggle">Dashboard</a>
+                <ul class="dropdown-menu">
                     <li ng-repeat="choice in items">
                         <a ui-sref={{choice.url}}>{{choice.text}}</a>
                     </li>
