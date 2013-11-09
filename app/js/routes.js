@@ -60,7 +60,16 @@ angular.module('myApp.routes', ['ui.router'])
                     }]
                 }
             })
-
+            .state('like-me-most', {
+                url: '/like-me-most',
+                templateUrl: 'templates/likememost.html',
+                controller:'LikeMeMost',
+                resolve: {
+                    feedsList:['facebookAPI',function(facebookAPI) {
+                        return facebookAPI.getMyFeeds();
+                    }]
+                }
+            })
             .state('narcissistic', {
                 url: '/narcissistic',
                 templateUrl: 'templates/narcissistic.html',
@@ -100,9 +109,10 @@ angular.module('myApp.routes', ['ui.router'])
     .controller('CareMeMost', ['$scope', 'feedsList', function($scope,feedsList){
         $scope.feeds = feedsList.data ;
         $scope.count = {}
-
+        console.log(feedsList.data);
         for (var x in feedsList.data) {
             if (feedsList.data[x].comments) {
+
                 for (var i in feedsList.data[x].comments.data) {
 //                    console.log(feedsList.data[x].comments.data[i]);
                     if ($scope.count[feedsList.data[x].comments.data[i].from.id]) {
@@ -117,6 +127,26 @@ angular.module('myApp.routes', ['ui.router'])
         console.log($scope.count);
     }])
 
+    .controller('LikeMeMost', ['$scope', 'feedsList', function($scope,feedsList){
+        $scope.feeds = feedsList.data ;
+        $scope.count = {}
+
+        console.log(feedsList.data);
+        for (var x in feedsList.data) {
+            if (feedsList.data[x].likes) {
+                for (var i in feedsList.data[x].likes.data) {
+  //                  console.log(feedsList.data[x].comments.data[i]);
+                    if ($scope.count[feedsList.data[x].likes.data[i].id]) {
+                        $scope.count[feedsList.data[x].likes.data[i].id] ++;
+                    } else {
+                        $scope.count[feedsList.data[x].likes.data[i].id] = 1;
+                    }
+                }
+            }
+        }
+
+        console.log($scope.count);
+    }])
 
     /**
      * if (friendsAlbums.data[x].albums)  -- this sets for Sheldon, I Can't get his data from API but website works

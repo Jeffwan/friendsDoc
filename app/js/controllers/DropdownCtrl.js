@@ -3,7 +3,7 @@
 */
 
 
-angular.module('myApp.controllers', ['ui.bootstrap'])
+angular.module('myApp.controllers')
   .controller('DropdownCtrl', ['$scope',function ($scope) {
         $scope.items = [
             {   text: 'CareMeMost',
@@ -13,7 +13,9 @@ angular.module('myApp.controllers', ['ui.bootstrap'])
             {   text: 'Statics',
                 url: 'statics'},
             {   text: 'Narcissistic',
-                url: 'narcissistic'}
+                url: 'narcissistic'},
+            {   text: 'LikeMeMost',
+                url: 'like-me-most'}
      ]
 
 
