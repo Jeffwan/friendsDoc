@@ -26,16 +26,13 @@ angular.module('myApp.routes', ['ui.router'])
                 controller:'ProfileCtrl'
             })
 
-            .state('statics',{
-                url: '/statics',
-                templateUrl: 'templates/statics.html',
-                controller: 'StaticsCtrl',
+            .state('sex',{
+                url: '/sex',
+                templateUrl: 'templates/sex.html',
+                controller: 'SexCtrl',
                 resolve: {
                     friendsList:['facebookAPI',function(facebookAPI) {
                         return facebookAPI.getFriends();
-                    }],
-                    sex: ['facebookAPI',function(facebookAPI) {
-                        return facebookAPI.getFriendsGender();
                     }]
                 }
             })
@@ -57,6 +54,9 @@ angular.module('myApp.routes', ['ui.router'])
                 resolve: {
                     feedsList:['facebookAPI',function(facebookAPI) {
                         return facebookAPI.getMyFeeds();
+                    }],
+                    me:['authentication','facebookAPI',function(authentication,facebookAPI){
+                        return facebookAPI.getMe();
                     }]
                 }
             })
@@ -101,14 +101,14 @@ angular.module('myApp.routes', ['ui.router'])
 
     }])
 
-    .controller('StaticsCtrl', ['$scope', 'friendsList','sex', function($scope, friendsList, sex){
+    .controller('SexCtrl', ['$scope', 'friendsList', function($scope, friendsList){
         $scope.friends = friendsList;
         $scope.male = 0
         $scope.female = 0;
-        $scope.total = sex.data.length;
+        $scope.total = friendsList.data.length;
 
-        for (var x in sex.data) {
-            if (sex.data[x].gender == 'male') {
+        for (var x in friendsList.data) {
+            if (friendsList.data[x].gender == 'male') {
                 $scope.male++;
             } else {
                 $scope.female++;
@@ -116,8 +116,9 @@ angular.module('myApp.routes', ['ui.router'])
         }
     }])
 
-    .controller('CareMeMost', ['$scope', 'feedsList', function($scope,feedsList){
+    .controller('CareMeMost', ['$scope', 'feedsList', 'me', 'utils' ,function($scope,feedsList,me,utils){
         $scope.feeds = feedsList.data ;
+        $scope.profile = me;
         $scope.count = {}
         console.log(feedsList.data);
         for (var x in feedsList.data) {
@@ -135,13 +136,13 @@ angular.module('myApp.routes', ['ui.router'])
         }
 
         console.log($scope.count);
+        $scope.result = utils.removeSelf($scope.profile.id, utils.hashSortbyValue($scope.count));
     }])
 
-    .controller('LikeMeMost', ['$scope', 'feedsList', function($scope,feedsList){
+    .controller('LikeMeMost', ['$scope', 'feedsList', 'utils', function($scope,feedsList,utils){
         $scope.feeds = feedsList.data ;
         $scope.count = {}
 
-        console.log(feedsList.data);
         for (var x in feedsList.data) {
             if (feedsList.data[x].likes) {
                 for (var i in feedsList.data[x].likes.data) {
@@ -154,16 +155,23 @@ angular.module('myApp.routes', ['ui.router'])
                 }
             }
         }
-
         console.log($scope.count);
+        $scope.result = utils.hashSortbyValue($scope.count);
+
     }])
 
     /**
      * if (friendsAlbums.data[x].albums)  -- this sets for Sheldon, I Can't get his data from API but website works
      * if (friendsAlbums.data[x].albums.data[i]) -- this sets for Flynn? or the following one
+     *
+     * Algorithm:
+     * 1.get pictures account
+     *   - if count >=10   chu?
+     *   - if count < 10   buchu?
+     *   - need to talk with yaxian.
      */
 
-    .controller('NarcissisticCtrl', ['$scope', 'friendsAlbums', function($scope, friendsAlbums) {
+    .controller('NarcissisticCtrl', ['$scope', 'friendsAlbums','utils', function($scope, friendsAlbums, utils) {
         $scope.count = {};
 
         for (var x in friendsAlbums.data) {
@@ -173,6 +181,7 @@ angular.module('myApp.routes', ['ui.router'])
 //                        console.log(friendsAlbums.data[x].albums.data[i].name);
                         if (friendsAlbums.data[x].albums.data[i].name == "Profile Pictures") {
                             $scope.count[friendsAlbums.data[x].id] = friendsAlbums.data[x].albums.data[i].count;
+
                         }
                     }
                 }
@@ -181,11 +190,13 @@ angular.module('myApp.routes', ['ui.router'])
 
         // here we should handle the hash, sort it , get the first 5.
 
-        console.log($scope.count);
+        $scope.result = utils.hashSortbyValue($scope.count);
+
+        //console.log($scope.result.length);
 
     }])
 
-    .controller('NetworkmapCtrl', ['$scope','friendsList', function($scope,friendsList){
+    .controller('NetworkmapCtrl', ['$scope','friendsList','utils', function($scope,friendsList,utils){
         $scope.count={};
 
         for(var x in friendsList.data){
@@ -204,5 +215,7 @@ angular.module('myApp.routes', ['ui.router'])
             }
 
         }
-        console.log($scope.count);
+//        console.log($scope.count);
+
+        $scope.result = utils.hashSortbyValue($scope.count);
     }])

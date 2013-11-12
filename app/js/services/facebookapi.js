@@ -49,7 +49,7 @@ angular.module('myApp.services')
         function getMyFeeds() {
             var  deferred = $q.defer();
 
-            Facebook.api('me/feed?fields=comments.fields(from,message),likes,id,message&limit=100&with=comments',function(response) {
+            Facebook.api('me/posts?fields=comments.fields(from,message),likes,id,message&limit=100&with=comments',function(response) {
                 console.log(response);
                 if(response) {
                     deferred.resolve(response);
@@ -83,8 +83,9 @@ angular.module('myApp.services')
 
         /**
          * Permission: friends_photos
-         *
-         *  bugs: someone like sheldon, i only get his id but not albums
+         *    https://graph.facebook.com/me/friends?fields=albums.limit(5).fields(count,updated_time,name,type)
+         *  bugs: someone like sheldon, i only get his id but not albums,
+         *  it seems like limit doesn't matter, there're someone whom I can't get their phones.
          */
         function getFriendsAlbums() {
             var deferred = $q.defer();
