@@ -100,34 +100,18 @@ angular.module('myApp.services')
             return deferred.promise;
         }
 
-        function getMutualFriends(friend) {
-            Facebook.api('/me?fields=mutualfriends.user('+friend.id+')',function(response) {
-                if(response.mutualfriends){
-
-                    return response.mutualfriends.data;
-                }
-            })
-        }
-
-
         function getAllMutualFriends() {
             var deferred = $q.defer();
-            var mutualFriends = {node:[]};
 
-            Facebook.api('/me?fields=friends',function(response) {
-                var friends = response.friends.data;
-                for (var i=0; i< friends.length; i++) {
-                    mutualFriends.node.push({
-                        name: friends[i].name,
-                        id: friends[i].id,
-                        mutualfriends: getMutualFriends(friends[i])})
-
+            Facebook.api('/me?fields=friends.fields(id,name,mutualfriends)',function(response) {
+                if(response.friends) {
+                    console.log(response.friends);
+                    deferred.resolve(response.friends);
+                } else {
+                    // error handling
                 }
             })
-            deferred.resolve(mutualFriends);
-
             return deferred.promise;
-
         }
 
         return {

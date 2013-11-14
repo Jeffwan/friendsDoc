@@ -33,9 +33,6 @@ angular.module('myApp.routes', ['ui.router'])
                 resolve: {
                     friendsList:['facebookAPI',function(facebookAPI) {
                         return facebookAPI.getFriends();
-                    }],
-                    mutualFriends :['facebookAPI', function(facebookAPI) {
-                        return facebookAPI.getAllMutualFriends();
                     }]
                 }
             })
@@ -93,6 +90,16 @@ angular.module('myApp.routes', ['ui.router'])
                     }]
                 }
             })
+            .state('mutualfriends', {
+                url:'/mutualfriends',
+                templateUrl:'templates/mutualfriends.html',
+                controller:'MutualFriendsCtrl',
+                resolve: {
+                    mutualFriends :['facebookAPI', function(facebookAPI) {
+                        return facebookAPI.getAllMutualFriends();
+                    }]
+                }
+            })
 
     }])
 
@@ -104,7 +111,7 @@ angular.module('myApp.routes', ['ui.router'])
 
     }])
 
-    .controller('SexCtrl', ['$scope', 'friendsList','mutualFriends',  function($scope, friendsList ,mutualFriends){
+    .controller('SexCtrl', ['$scope', 'friendsList', function($scope, friendsList){
         $scope.friends = friendsList;
         $scope.male = 0
         $scope.female = 0;
@@ -117,9 +124,6 @@ angular.module('myApp.routes', ['ui.router'])
                 $scope.female++;
             }
         }
-
-        console.log(mutualFriends);
-
     }])
 
     .controller('CareMeMost', ['$scope', 'feedsList', 'me', 'utils' ,function($scope,feedsList,me,utils){
@@ -230,4 +234,8 @@ angular.module('myApp.routes', ['ui.router'])
 //        console.log($scope.count);
 
         $scope.result = utils.hashSortbyValue($scope.count);
+    }])
+
+    .controller('MutualFriendsCtrl',['$scope','mutualFriends', 'utils', function($scope, mutualFriends, utils){
+        $scope.mutualFriends =  mutualFriends;
     }])
