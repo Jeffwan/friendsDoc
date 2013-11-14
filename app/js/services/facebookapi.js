@@ -89,7 +89,7 @@ angular.module('myApp.services')
          */
         function getFriendsAlbums() {
             var deferred = $q.defer();
-            Facebook.api('/me/friends?fields=albums.limit(5).fields(count,updated_time,name,type)', function(response) {
+            Facebook.api('/me/friends?fields=albums.limit(5).fields(count,updated_time,name,type),name,picture', function(response) {
                 if(response.data) {
                     console.log(response);
                     deferred.resolve(response);
@@ -100,12 +100,43 @@ angular.module('myApp.services')
             return deferred.promise;
         }
 
+        function getMutualFriends(friend) {
+            Facebook.api('/me?fields=mutualfriends.user('+friend.id+')',function(response) {
+                if(response.mutualfriends){
+
+                    return response.mutualfriends.data;
+                }
+            })
+        }
+
+
+        function getAllMutualFriends() {
+            var deferred = $q.defer();
+            var mutualFriends = {node:[]};
+
+            Facebook.api('/me?fields=friends',function(response) {
+                var friends = response.friends.data;
+                for (var i=0; i< friends.length; i++) {
+                    mutualFriends.node.push({
+                        name: friends[i].name,
+                        id: friends[i].id,
+                        mutualfriends: getMutualFriends(friends[i])})
+
+                }
+            })
+            deferred.resolve(mutualFriends);
+
+            return deferred.promise;
+
+        }
+
         return {
             getMe : getMe,
             getFriends: getFriends,
             getMyFeeds: getMyFeeds,
             getFriendsGender : getFriendsGender,
-            getFriendsAlbums : getFriendsAlbums
+            getFriendsAlbums : getFriendsAlbums,
+            getAllMutualFriends: getAllMutualFriends
         }
 
     }])

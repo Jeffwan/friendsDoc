@@ -32,9 +32,32 @@ angular.module('myApp.services', ['facebook'])
             return result;
         }
 
-        return {
-             hashSortbyValue: hashSortbyValue,
-             removeSelf: removeSelf
+
+        function searchPicture(rankResult,data) {
+            var result =[];
+            for (var i=0; i<rankResult.length; i++) {
+                for (var j=0; j<data.length; j++) {
+                    if (rankResult[i][0] == data[j].name) {
+                        result[i] = data[j].picture.data.url;
+                    }
+                }
+            }
+            return result;
         }
 
+
+        return {
+            hashSortbyValue: hashSortbyValue,
+            removeSelf: removeSelf,
+            searchPicture:searchPicture
+        }
+
+    }])
+
+    .factory('AppModel', ['$log',function($log){
+        var appModel = {
+            me: null,
+            friends: []
+        }
+        return appModel;
     }])

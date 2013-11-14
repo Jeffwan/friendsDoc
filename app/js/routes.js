@@ -33,6 +33,9 @@ angular.module('myApp.routes', ['ui.router'])
                 resolve: {
                     friendsList:['facebookAPI',function(facebookAPI) {
                         return facebookAPI.getFriends();
+                    }],
+                    mutualFriends :['facebookAPI', function(facebookAPI) {
+                        return facebookAPI.getAllMutualFriends();
                     }]
                 }
             })
@@ -101,7 +104,7 @@ angular.module('myApp.routes', ['ui.router'])
 
     }])
 
-    .controller('SexCtrl', ['$scope', 'friendsList', function($scope, friendsList){
+    .controller('SexCtrl', ['$scope', 'friendsList','mutualFriends',  function($scope, friendsList ,mutualFriends){
         $scope.friends = friendsList;
         $scope.male = 0
         $scope.female = 0;
@@ -114,6 +117,9 @@ angular.module('myApp.routes', ['ui.router'])
                 $scope.female++;
             }
         }
+
+        console.log(mutualFriends);
+
     }])
 
     .controller('CareMeMost', ['$scope', 'feedsList', 'me', 'utils' ,function($scope,feedsList,me,utils){
@@ -126,17 +132,19 @@ angular.module('myApp.routes', ['ui.router'])
 
                 for (var i in feedsList.data[x].comments.data) {
 //                    console.log(feedsList.data[x].comments.data[i]);
-                    if ($scope.count[feedsList.data[x].comments.data[i].from.id]) {
-                        $scope.count[feedsList.data[x].comments.data[i].from.id] ++;
+                    if ($scope.count[feedsList.data[x].comments.data[i].from.name]) {
+                        $scope.count[feedsList.data[x].comments.data[i].from.name] ++;
                     } else {
-                        $scope.count[feedsList.data[x].comments.data[i].from.id] = 1;
+                        $scope.count[feedsList.data[x].comments.data[i].from.name] = 1;
                     }
                 }
             }
         }
 
-        console.log($scope.count);
-        $scope.result = utils.removeSelf($scope.profile.id, utils.hashSortbyValue($scope.count));
+        $scope.result = utils.removeSelf($scope.profile.name, utils.hashSortbyValue($scope.count));
+        $scope.pictures = $scope.pictures = utils.searchPicture($scope.result,$scope.friendsPicture.friends.data);
+
+
     }])
 
     .controller('LikeMeMost', ['$scope', 'feedsList', 'utils', function($scope,feedsList,utils){
@@ -147,16 +155,17 @@ angular.module('myApp.routes', ['ui.router'])
             if (feedsList.data[x].likes) {
                 for (var i in feedsList.data[x].likes.data) {
   //                  console.log(feedsList.data[x].comments.data[i]);
-                    if ($scope.count[feedsList.data[x].likes.data[i].id]) {
-                        $scope.count[feedsList.data[x].likes.data[i].id] ++;
+                    if ($scope.count[feedsList.data[x].likes.data[i].name]) {
+                        $scope.count[feedsList.data[x].likes.data[i].name] ++;
                     } else {
-                        $scope.count[feedsList.data[x].likes.data[i].id] = 1;
+                        $scope.count[feedsList.data[x].likes.data[i].name] = 1;
                     }
                 }
             }
         }
         console.log($scope.count);
         $scope.result = utils.hashSortbyValue($scope.count);
+        $scope.pictures = utils.searchPicture($scope.result,$scope.friendsPicture.friends.data);
 
     }])
 
@@ -180,7 +189,7 @@ angular.module('myApp.routes', ['ui.router'])
                     if (friendsAlbums.data[x].albums.data[i]) {
 //                        console.log(friendsAlbums.data[x].albums.data[i].name);
                         if (friendsAlbums.data[x].albums.data[i].name == "Profile Pictures") {
-                            $scope.count[friendsAlbums.data[x].id] = friendsAlbums.data[x].albums.data[i].count;
+                            $scope.count[friendsAlbums.data[x].name] = friendsAlbums.data[x].albums.data[i].count;
 
                         }
                     }
@@ -192,7 +201,10 @@ angular.module('myApp.routes', ['ui.router'])
 
         $scope.result = utils.hashSortbyValue($scope.count);
 
-        //console.log($scope.result.length);
+//        console.log($scope.result);
+
+
+        $scope.pictures = utils.searchPicture($scope.result, $scope.friendsPicture.friends.data);
 
     }])
 

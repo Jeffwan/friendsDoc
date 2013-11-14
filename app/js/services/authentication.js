@@ -29,7 +29,8 @@ angular.module('myApp.services')
                 if (response.status == 'connected') {
                     $rootScope.authentication = response.authResponse;
                     $rootScope.logged = true;
-                    return getMe();
+                    getMe();
+                    getFriendsPictures();
                 }
             }, permissions);
         };
@@ -65,11 +66,24 @@ angular.module('myApp.services')
             return deferred.promise;
         };
 
+        function getFriendsPictures() {
+            var deferred = $q.defer();
+            Facebook.api('/me?fields=friends.fields(picture,name)', function(response) {
+                $rootScope.$apply(function(){
+                    $rootScope.friendsPicture = response;
+                    deferred.resolve(response);
+
+                })
+            });
+            return deferred.promise;
+        };
+
         return {
             login: login,
             logout: logout,
             getLoginStatus: getLoginStatus,
-            getMe: getMe
+            getMe: getMe,
+            getFriendsPictures:getFriendsPictures
         }
 
 
