@@ -391,10 +391,10 @@ angular.module('myApp.routes', ['ui.router'])
                         .attr("cy", function(d) { return d.y; });
 
                     link.attr("link-id",function(d) { return d.sourceId })
-                        .attr("x1", function(d) { return d.source.x + 6; })
-                        .attr("y1", function(d) { return d.source.y + 6; })
-                        .attr("x2", function(d) { return d.target.x + 6; })
-                        .attr("y2", function(d) { return d.target.y + 6; });
+                        .attr("x1", function(d) { return d.source.x; })
+                        .attr("y1", function(d) { return d.source.y; })
+                        .attr("x2", function(d) { return d.target.x; })
+                        .attr("y2", function(d) { return d.target.y; });
                 });
 
             }
