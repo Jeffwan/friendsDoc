@@ -64,13 +64,13 @@ angular.module('myApp.services')
          * Permission: user_friends function
          *
          */
-        function getFriendsGender() {
+        function getFriendsBasic() {
             var deferred = $q.defer();
-            Facebook.api('/me?fields=friends.fields(id,gender,name)', function(response) {
+            Facebook.api('/me?fields=friends.fields(id,name)', function(response) {
                 if(response.friends) {
 //                    result = {'male': male, 'female': female , 'total': response.friends.data.length}
 //                    deferred.resolve(result);
-                    deferred.resolve(response.friends);
+                    deferred.resolve(response.friends.data);
 
                 } else {
                     // error handling
@@ -118,7 +118,7 @@ angular.module('myApp.services')
             getMe : getMe,
             getFriends: getFriends,
             getMyFeeds: getMyFeeds,
-            getFriendsGender : getFriendsGender,
+            getFriendsBasic : getFriendsBasic,
             getFriendsAlbums : getFriendsAlbums,
             getAllMutualFriends: getAllMutualFriends
         }

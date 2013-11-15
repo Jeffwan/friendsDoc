@@ -97,6 +97,9 @@ angular.module('myApp.routes', ['ui.router'])
                 resolve: {
                     mutualFriends :['facebookAPI', function(facebookAPI) {
                         return facebookAPI.getAllMutualFriends();
+                    }],
+                    basicFriends: ['facebookAPI', function(facebookAPI) {
+                        return facebookAPI.getFriendsBasic();
                     }]
                 }
             })
@@ -236,6 +239,128 @@ angular.module('myApp.routes', ['ui.router'])
         $scope.result = utils.hashSortbyValue($scope.count);
     }])
 
-    .controller('MutualFriendsCtrl',['$scope','mutualFriends', 'utils', function($scope, mutualFriends, utils){
-        $scope.mutualFriends =  mutualFriends;
-    }])
+    .controller('MutualFriendsCtrl',['$scope','mutualFriends','basicFriends', 'utils',
+        function($scope, mutualFriends, basicFriends, utils){
+
+            $scope.mutualFriends =  mutualFriends;
+            $scope.friends = basicFriends;
+            $scope.friendsLink = []
+
+//            for (var i=0; i <mutualFriends.length; i++) {
+//                $scope.friends[i].id = mutualFriends.data[i].id;
+//                $scope.friends[i].name = mutualFriends.data[i].name;
+//            }
+
+            // return people $index in array
+            function indexWithAttribute(array, attr, value) {
+                for(var i = 0; i < array.length; i++) {
+                    if(array[i][attr] === value) {
+                        return i;
+                    } else {
+                        continue;
+                    }
+                }
+            }
+
+            function showName(d) {
+                // Displays given d3 node's 'name' attribute.
+                document.getElementById('selected-friend-name').innerHTML = d['name'];
+            }
+
+
+            for (var i=0; i<basicFriends.length; i++) {
+                // my friend may not have mutual friend with me.
+                var completed = Math.round(100*(i/basicFriends.length));
+                document.getElementById('load-status').innerHTML = 'Calculating mutual friend links: ' + completed + '%'
+                if (mutualFriends.data[i].mutualfriends) {
+                    for (var j=0; j< mutualFriends.data[i].mutualfriends.data.length;j++){
+                        if($scope.friends[i]) {
+                            $scope.friends[i].value = mutualFriends.data[i].mutualfriends.data.length;
+                            var targetIndex = indexWithAttribute(basicFriends,'id',mutualFriends.data[i].mutualfriends.data[j]['id']);
+                            $scope.friendsLink.push(
+                                {
+                                    'source' : i,
+                                    'target': targetIndex,
+                                    'value': mutualFriends.data[i].mutualfriends.data.length
+                                }
+                            )
+                        }
+                    }
+                }
+
+                if(i === basicFriends.length -1) {
+                    console.log('hehe');
+                    graphFriends($scope.friends, $scope.friendsLink);
+                }
+            }
+
+//            console.log($scope.friends);
+//            console.log($scope.friendsLink);
+
+            function graphFriends(friends, friendlinks) {
+                // Configures a d3 force-directed graph of friends and friend links.
+                document.getElementById('load-status').innerHTML = ''
+
+                // Set dimensions of svg
+                // innerWidth get self window width and length
+                var width = window.innerWidth - 100,
+                    height = window.innerHeight - 100;
+
+                // Set up a 10-color scale for node colors
+                var color = d3.scale.category20();
+
+                // Set up a linear scale to map number of mutual
+                // friends to node radius
+                var r = d3.scale.linear()
+                    .domain([1,100])
+                    .range([5,15]);
+
+                // Set the initial parameters of the force() layout
+                var force = d3.layout.force()
+                    .charge(-100)
+                    .linkDistance(60)
+                    .size([width, height]);
+
+                // Add svg and start visualization
+                var svg = d3.select("#viz").append("svg")
+                    .attr("width", width)
+                    .attr("height", height);
+
+                // Pass in friends array as graph nodes and friendlinks
+                // array as graph edges.
+                force
+                    .nodes(friends)
+                    .links(friendlinks)
+                    .start();
+
+                var link = svg.selectAll("line.link")
+                    .data(friendlinks)
+                    .enter().append("line")
+                    .attr("class", "link")
+                    .style("stroke", "rgba(200, 200, 200, 0.2)")
+                    .style("stroke-width", 2);
+
+                var node = svg.selectAll("circle.node")
+                    .data(friends)
+                    .enter().append("circle")
+                    .attr("class", "node")
+                    .attr("r", function(d) { return r(d.value); })
+                    .style("stroke", "rgba(200, 200, 200, 0.2)")
+                    .style("fill", function(d) { return color(d.value); })
+                    .on("mouseover", function(d) { showName(d); })
+                    .call(force.drag);
+
+                force.on("tick", function() {
+                    node.attr("cx", function(d) { return d.x; })
+                        .attr("cy", function(d) { return d.y; });
+
+                    link.attr("link-id",function(d) { return d.sourceId })
+                        .attr("x1", function(d) { return d.source.x + 6; })
+                        .attr("y1", function(d) { return d.source.y + 6; })
+                        .attr("x2", function(d) { return d.target.x + 6; })
+                        .attr("y2", function(d) { return d.target.y + 6; });
+                });
+
+            }
+
+        }])
