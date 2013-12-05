@@ -2,7 +2,7 @@
 <html lang="en" ng-app="myApp">
 <head>
   <meta charset="utf-8">
-  <title>My AngularJS App</title>
+  <title>FriendsDoc</title>
   <link rel="stylesheet" href="css/bootstrap/bootstrap.min.css"/>
   <link rel="stylesheet" href="css/bootstrap/bootstrap-responsive.min.css"/>
   <link rel="stylesheet" href="css/app.css"/>
@@ -18,88 +18,78 @@
     <div class="navbar-inner">
       <div class="container">
 
-        <ul class="nav">
-          <li><a class="brand" ui-sref="home">FriendsDoc</a></li>
-          <!-- Here you can see ui-sref in action again. Also notice the use of $state.includes, which
-               will set the links to 'active' if, for example on the first link, 'contacts' or any of
-               its descendant states are activated. -->
 
-          <li ng-class="{ active: $state.includes('home') }"><a ui-sref="home">Home</a></li>
-          <li class="dropdown" ng-class="{ active: $state.includes('dashboard') }" ng-controller="DropdownCtrl">
-                <a class="dropdown-toggle">Dashboard</a>
-                <ul class="dropdown-menu">
-                    <li ng-repeat="choice in items">
-                        <a ui-sref={{choice.url}}>{{choice.text}}</a>
-                    </li>
-                </ul>
+        <div class="nav-collapse collapse">
+          <ul class="nav">
 
-          </li>
+            <!-- Here you can see ui-sref in action again. Also notice the use of $state.includes, which
+                 will set the links to 'active' if, for example on the first link, 'contacts' or any of
+                 its descendant states are activated. -->
+            <li><a class="brand" ui-sref="home">FriendsDoc</a></li>
+            <li class= "active" ng-class="{ active: $state.includes('dashboard') }"><a ui-sref="dashboard">Dashboard</a></li>
 
-          <li ng-class="{ active: $state.includes('about') }"><a ui-sref="about">About</a></li>
-        </ul>
-
-
-
-        <div ng-controller="AuthenticationCtrl" ng-show="!authentication.accessToken">
-          <ul class="nav pull-right">
-            <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown" ng-click="login()">
-                Login
-              </a>
-            </li>
-          </ul>
-
-        </div>
-
-        <div ng-controller="AuthenticationCtrl" ng-show="authentication.accessToken">
-          <ul class="nav pull-right">
-            <li id="fat-menu" class="dropdown">
-              <a href="#" id="drop3" class="dropdown-toggle" data-toggle="dropdown">
-                {{profile.name}}
-                <b class="caret"></b>
-              </a>
-
-              <ul class="dropdown-menu" role="menu" aria-labelledby="drop3">
-                <li role="presentation">
-                  <a href="#" role="menuitem" tabindex="1" ui-sref="profile">Profile</a>
-                </li>
-                <li role="presentation">
-                  <a href="#" role="menuitem" tabindex="2" ng-click="logout()">Logout</a>
+            <li class="dropdown" ng-controller="DropdownCtrl">
+              <a class="dropdown-toggle">Functionalities</a>
+              <ul class="dropdown-menu">
+                <li ng-repeat="choice in items">
+                  <a ui-sref={{choice.url}}>{{choice.text}}</a>
                 </li>
               </ul>
 
-
             </li>
+
+            <li ng-class="{ active: $state.includes('about') }"><a ui-sref="about">About</a></li>
+
           </ul>
 
+
+          <div ng-controller="AuthenticationCtrl" ng-show="!authentication.accessToken">
+            <ul class="nav pull-right">
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" ng-click="login()">
+                  Login
+                </a>
+              </li>
+            </ul>
+
+          </div>
+
+          <div ng-controller="AuthenticationCtrl" ng-show="authentication.accessToken">
+            <ul class="nav pull-right">
+              <li id="fat-menu" class="dropdown">
+                <a href="#" id="drop3" class="dropdown-toggle" data-toggle="dropdown">
+                  {{profile.name}}
+                  <b class="caret"></b>
+                </a>
+
+                <ul class="dropdown-menu" role="menu" aria-labelledby="drop3">
+                  <li role="presentation">
+                    <a href="#" role="menuitem" tabindex="1" ui-sref="profile">Profile</a>
+                  </li>
+                  <li role="presentation">
+                    <a href="#" role="menuitem" tabindex="2" ng-click="logout()">Logout</a>
+                  </li>
+                </ul>
+
+              </li>
+            </ul>
+
+          </div>
         </div>
-
-
-          <!--<div class="btn-group pull-right" ng-controller="AuthenticationCtrl">-->
-              <!--<button type="button" class="btn" ng-click="login()" ng-show="!authentication.accessToken">Login</button>-->
-              <!--<button type="button" class="btn dropdown-toggle">-->
-                  <!--<span class="caret"></span>-->
-              <!--</button>-->
-              <!--<ul class="dropdown-menu">-->
-                  <!--<li><a ui-sref="profile">Profile</a></li>-->
-                  <!--<li class="divider"></li>-->
-                  <!--<li><a ng-click="logout()">Logout</a></li>-->
-              <!--</ul>-->
-          <!--</div>-->
-
-
-
-        <!-- Here is a named ui-view. ui-views don't have to be named, but we'll be populate this
-             on from various different child states and we want a name to help us target. -->
-        <!--<p ui-view="hint" class="navbar-text pull-right"></p>-->
       </div>
     </div>
   </div>
 
 
+        <!-- Here is a named ui-view. ui-views don't have to be named, but we'll be populate this
+             on from various different child states and we want a name to help us target. -->
+        <!--<p ui-view="hint" class="navbar-text pull-right"></p>-->
+
+
+
   <!-- Here is the main ui-view (unnamed) and will be populate by its immediate children's templates
           unless otherwise explicitly named views are targeted. It's also employing ng-animate. -->
-  <div ui-view class="container" style="margin-top:60px" ng-animate="{enter:'fade-enter'}"></div>
+  <div ui-view class="content" style="padding-top:150px" ng-animate="{enter:'fade-enter'}"></div>
 
   <hr>
     <pre>
@@ -132,9 +122,19 @@
 
   <!-- Footer-->
 
-  <footer class="container">
-    <p class="pull-right"><a href="#">Back to top</a></p>
-    <p>&copy; 2013 Pittsburgh students &middot; <a href="#">Privacy</a> &middot; <a href="#">Terms</a></p>
+  <footer class="footer">
+      <div class="content">
+          <p>Designed and built with all the love in the world by <a href="http://twitter.com/mdo" target="_blank">@mdo</a> and <a href="http://twitter.com/fat" target="_blank">@fat</a>.</p>
+          <p>Code licensed under <a href="http://www.apache.org/licenses/LICENSE-2.0" target="_blank">Apache License v2.0</a>, documentation under <a href="http://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>.</p>
+          <p><a href="http://glyphicons.com">Glyphicons Free</a> licensed under <a href="http://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>.</p>
+          <ul class="footer-links">
+              <li><a href="http://blog.getbootstrap.com">Blog</a></li>
+              <li class="muted">&middot;</li>
+              <li><a href="https://github.com/twbs/bootstrap/issues?state=open">Issues</a></li>
+              <li class="muted">&middot;</li>
+              <li><a href="https://github.com/twbs/bootstrap/releases">Changelog</a></li>
+          </ul>
+      </div>
   </footer>
   <!-- At the privacy link and terms we can have a page to declare our privacy agreements.-->
   <!-- End of Footer-->
