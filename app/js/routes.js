@@ -16,19 +16,12 @@ angular.module('myApp.routes', ['ui.router'])
             })
             .state("profile", {
                 url:'/profile',
-                templateUrl:'templates/profile.html',
-                resolve: {
-                  me:['authentication','facebookAPI',function(authentication,facebookAPI){
-//                      authentication.login();
-                      return facebookAPI.getMe();
-                  }]
-                },
-                controller:'ProfileCtrl'
+                templateUrl:'templates/profile.html'
             })
 
             .state("functionality", {
                 url:'',
-                templateUrl:'templlates/functionality.html',
+                templateUrl:'templates/functionality.html',
                 controller:'FunctionalityCtrl'
             })
 
@@ -50,7 +43,8 @@ angular.module('myApp.routes', ['ui.router'])
 
             .state('dashboard', {
                 url: '/dashboard',
-                templateUrl: 'templates/dashboard.html'
+                templateUrl: 'templates/dashboard.html',
+                controller:"DashboardCtrl"
             })
 
             .state('care-me-most', {
@@ -109,15 +103,6 @@ angular.module('myApp.routes', ['ui.router'])
                     }]
                 }
             })
-
-    }])
-
-
-    .controller('ProfileCtrl', ['$scope','authentication','me', function($scope,authentication,me){
-//        $scope.pullProfile = authentication.login;
-//        console.log(facebookAPI.getMe());
-        console.log(me);
-        $scope.profile = me;
 
     }])
 
