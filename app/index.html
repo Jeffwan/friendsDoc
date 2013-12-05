@@ -26,16 +26,21 @@
                  will set the links to 'active' if, for example on the first link, 'contacts' or any of
                  its descendant states are activated. -->
             <li><a class="brand" ui-sref="home">FriendsDoc</a></li>
-            <li class= "active" ng-class="{ active: $state.includes('dashboard') }"><a ui-sref="dashboard">Dashboard</a></li>
+            <li ng-class="{ active: $state.includes('home') }"><a ui-sref="home">Home</a></li>
 
-            <li class="dropdown" ng-controller="DropdownCtrl">
+
+
+            <li ng-class="{ active: $state.includes('dashboard') }" ng-show="authentication.accessToken">
+              <a ui-sref="dashboard">Dashboard</a>
+            </li>
+
+            <li class="dropdown" ng-controller="DropdownCtrl" ng-show="authentication.accessToken">
               <a class="dropdown-toggle">Functionalities</a>
               <ul class="dropdown-menu">
                 <li ng-repeat="choice in items">
                   <a ui-sref={{choice.url}}>{{choice.text}}</a>
                 </li>
               </ul>
-
             </li>
 
             <li ng-class="{ active: $state.includes('about') }"><a ui-sref="about">About</a></li>
@@ -167,6 +172,7 @@
   <script src="js/controllers/carouseDemoCtrl.js"></script>
   <script src="js/controllers/datepickerDemoCtrl.js"></script>
   <script src="js/controllers/dropdownCtrl.js"></script>
+  <script src="js/controllers/dashboardCtrl.js"></script>
 
   <!--<script src="js/services/facebookAPI.js"></script>-->
   <script src="js/filters.js"></script>

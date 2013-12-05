@@ -1,13 +1,9 @@
-<ul class="nav nav-list">
-  <li ng-class="{ active: $state.includes('functionality') }"><a ui-sref="functionality">All Contacts</a></li>
-  <li class="nav-header">Top Contacts</li>
+<!--<ul class="nav nav-list">-->
+  <!--<li ng-class="{ active: $state.includes('functionality') }"><a ui-sref="functionality">All Contacts</a></li>-->
+  <!--<li class="nav-header">Top Contacts</li>-->
 
-  <!-- This <li> will only add the 'active' class if 'contacts.detail' or its descendants are active
-       AND if it is the link for the active contact (aka contactId) -->
-  <li ng-repeat="contact in contacts | limitTo:2"
-      ng-class="{ active: $state.includes('contacts.detail') && $stateParams.contactId == contact.id }">
-
-    <!-- Here's a ui-sref that is also providing necessary parameters -->
-    <a ui-sref="contacts.detail({contactId:contact.id})">{{contact.name}}</a>
-  </li>
-</ul>
+  <!--&lt;!&ndash; This <li> will only add the 'active' class if 'contacts.detail' or its descendants are active-->
+       <!--AND if it is the link for the active contact (aka contactId) &ndash;&gt;-->
+  <!--<li ng-class="{ active: }">-->
+  <!--</li>-->
+<!--</ul>-->

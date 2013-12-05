@@ -28,7 +28,7 @@ angular.module('myApp.routes', ['ui.router'])
 
             .state("functionality", {
                 url:'',
-                templateUrl:'templlates/functionality.html',
+                templateUrl:'templates/functionality.html',
                 controller:'FunctionalityCtrl'
             })
 
@@ -50,7 +50,8 @@ angular.module('myApp.routes', ['ui.router'])
 
             .state('dashboard', {
                 url: '/dashboard',
-                templateUrl: 'templates/dashboard.html'
+                templateUrl: 'templates/dashboard.html',
+                controller:"DashboardCtrl"
             })
 
             .state('care-me-most', {
