@@ -46,6 +46,7 @@ angular.module('myApp.services')
                     $rootScope.authentication = null;
                     $rootScope.logged = false;
                     $rootScope.profile = {};
+                    $state.go('home');
                 })
             });
         };
@@ -63,7 +64,6 @@ angular.module('myApp.services')
             var deferred = $q.defer();
 //            Facebook.api('/me', function(response) {
             Facebook.api('/me?fields=hometown,education,name,location,gender,picture', function(response) {
-                console.log("hehe?");
                 $rootScope.$apply(function(){
                     $rootScope.profile = response;
                     deferred.resolve(response);

@@ -25,11 +25,11 @@
             <!-- Here you can see ui-sref in action again. Also notice the use of $state.includes, which
                  will set the links to 'active' if, for example on the first link, 'contacts' or any of
                  its descendant states are activated. -->
+
             <li><a class="brand" ui-sref="home">FriendsDoc</a></li>
             <li ng-class="{ active: $state.includes('home') }"><a ui-sref="home">Home</a></li>
 
-
-
+            <!-- dashboard dropdown -->
             <li ng-class="{ active: $state.includes('dashboard') }" ng-show="authentication.accessToken">
               <a ui-sref="dashboard">Dashboard</a>
             </li>
@@ -47,7 +47,7 @@
 
           </ul>
 
-
+          <!-- for unauthenticated users-->
           <div ng-controller="AuthenticationCtrl" ng-show="!authentication.accessToken">
             <ul class="nav pull-right">
               <li class="dropdown">
@@ -59,6 +59,8 @@
 
           </div>
 
+
+          <!-- for authenticated users-->
           <div ng-controller="AuthenticationCtrl" ng-show="authentication.accessToken">
             <ul class="nav pull-right">
               <li id="fat-menu" class="dropdown">
@@ -90,11 +92,13 @@
              on from various different child states and we want a name to help us target. -->
         <!--<p ui-view="hint" class="navbar-text pull-right"></p>-->
 
-
-
   <!-- Here is the main ui-view (unnamed) and will be populate by its immediate children's templates
           unless otherwise explicitly named views are targeted. It's also employing ng-animate. -->
-  <div ui-view class="content" style="padding-top:150px" ng-animate="{enter:'fade-enter'}"></div>
+
+  <div class="container">
+    <!-- we use code here for debugging-->
+    <div ui-view class="content" style="padding-top:50px" ng-animate="{enter:'fade-enter'}"></div>
+  </div>
 
   <hr>
     <pre>
@@ -106,7 +110,6 @@
       <!-- $state.$current is not a public api, we are using it to
            display the full url for learning purposes-->
     </pre>
-
 
   <div id='fb-root'></div>
 
@@ -143,10 +146,6 @@
   </footer>
   <!-- At the privacy link and terms we can have a page to declare our privacy agreements.-->
   <!-- End of Footer-->
-
-
-
-
 
   <!-- In production use:
   <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular.min.js"></script>
