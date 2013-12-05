@@ -1,5 +1,27 @@
-<div id="selected-friend-name"></div>
+<div class="row-fluid">
+    <div class="span3" ng-controller="DashboardCtrl">
+        <div class="well">
+            <ul class="nav nav-list">
+                <li class="nav-header">Top Contacts</li>
+                <!-- This <li> will only add the 'active' class if 'contacts.detail' or its descendants are active
+                     AND if it is the link for the active contact (aka contactId) -->
+                <li><a href="" ng-click="carememost()">CareMeMost</a></li>
+                <li><a href="" ng-click="likememost()">LikeMeMost</a></li>
+                <li><a href="" ng-click="network()">FriendMap</a></li>
+                <li><a href="" ng-click="sex()">Than Bros?</a></li>
+                <li><a href="" ng-click="narcissistic()">Narcissistic</a></li>
+                <li><a href="" ng-click="mutualfriends()">NetworkMap</a></li>
+
+            </ul>
+        </div>
+    </div>
+
+    <div class="span8 offset1">
+
+        <div id="selected-friend-name"></div>
+        <div id="viz"></div>
+        <div id="load-status"></div>
 
 
-<div id="viz"></div>
-<div id="load-status"></div>
+    </div>
+</div>

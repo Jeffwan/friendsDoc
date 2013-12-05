@@ -6,18 +6,29 @@
   }
 </style>
 
+<div class="row-fluid">
+    <div class="span3" ng-controller="DashboardCtrl">
+        <div class="well">
+            <ul class="nav nav-list">
+                <li class="nav-header">Top Contacts</li>
+                <!-- This <li> will only add the 'active' class if 'contacts.detail' or its descendants are active
+                     AND if it is the link for the active contact (aka contactId) -->
+                <li><a href="" ng-click="carememost()">CareMeMost</a></li>
+                <li><a href="" ng-click="likememost()">LikeMeMost</a></li>
+                <li><a href="" ng-click="network()">FriendMap</a></li>
+                <li><a href="" ng-click="sex()">Than Bros?</a></li>
+                <li><a href="" ng-click="narcissistic()">Narcissistic</a></li>
+                <li><a href="" ng-click="mutualfriends()">NetworkMap</a></li>
 
-<div class="span4">
-  hello
-  <!--<div ui-view="sidebar" ng-animate="{enter:'fade-enter'}"></div>-->
+            </ul>
+        </div>
+    </div>
+
+    <div class="span8 offset1">
+
+        <h2>Sex Ratio</h2>
+        <svg id="sexratio" class="mypiechart"></svg>
+
+        Total Friends: {{ total }}
+    </div>
 </div>
-
-<div class="span8">
-  <h2>Sex Ratio</h2>
-  <svg id="sexratio" class="mypiechart"></svg>
-
-  Total Friends: {{ total }}
-</div>
-
-
-
