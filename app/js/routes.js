@@ -19,11 +19,17 @@ angular.module('myApp.routes', ['ui.router'])
                 templateUrl:'templates/profile.html',
                 resolve: {
                   me:['authentication','facebookAPI',function(authentication,facebookAPI){
-                      authentication.login();
+//                      authentication.login();
                       return facebookAPI.getMe();
                   }]
                 },
                 controller:'ProfileCtrl'
+            })
+
+            .state("functionality", {
+                url:'',
+                templateUrl:'templlates/functionality.html',
+                controller:'FunctionalityCtrl'
             })
 
             .state('sex',{
@@ -108,8 +114,9 @@ angular.module('myApp.routes', ['ui.router'])
 
 
     .controller('ProfileCtrl', ['$scope','authentication','me', function($scope,authentication,me){
-        $scope.pullProfile = authentication.login;
+//        $scope.pullProfile = authentication.login;
 //        console.log(facebookAPI.getMe());
+        console.log(me);
         $scope.profile = me;
 
     }])

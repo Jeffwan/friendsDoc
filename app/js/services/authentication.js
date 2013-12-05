@@ -16,12 +16,12 @@
 // In this case it is a simple value service.
 angular.module('myApp.services')
     // A RESTful factory for retreiving contacts from 'contacts.json'
-    .factory('authentication', ['$rootScope','$q','Facebook', function ($rootScope, $q, Facebook) {
+    .factory('authentication', ['$rootScope','$q','Facebook','$state', function ($rootScope, $q, Facebook, $state) {
         $rootScope.profile = {};
 
         //declare facebook permissions in login process
         var permissions ={
-            scope:'user_friends, read_stream, export_stream, friends_photos, friends_hometown, friends_location'
+            scope:'user_friends, user_photos, read_stream, export_stream, friends_photos, friends_hometown, friends_location'
         }
 
         function login () {
@@ -31,8 +31,12 @@ angular.module('myApp.services')
                     $rootScope.logged = true;
                     getMe();
                     getFriendsPictures();
+                    $state.go('dashboard');
                 }
             }, permissions);
+
+            // redirect to dashboard page
+
         };
 
         function logout() {
@@ -57,7 +61,9 @@ angular.module('myApp.services')
 
         function getMe() {
             var deferred = $q.defer();
-            Facebook.api('/me', function(response) {
+//            Facebook.api('/me', function(response) {
+            Facebook.api('/me?fields=hometown,education,name,location,gender,picture', function(response) {
+                console.log("hehe?");
                 $rootScope.$apply(function(){
                     $rootScope.profile = response;
                     deferred.resolve(response);

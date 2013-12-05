@@ -24,7 +24,8 @@
                will set the links to 'active' if, for example on the first link, 'contacts' or any of
                its descendant states are activated. -->
 
-            <li class="dropdown" ng-class="{ active: $state.includes('dashboard') }" ng-controller="DropdownCtrl">
+          <li ng-class="{ active: $state.includes('home') }"><a ui-sref="home">Home</a></li>
+          <li class="dropdown" ng-class="{ active: $state.includes('dashboard') }" ng-controller="DropdownCtrl">
                 <a class="dropdown-toggle">Dashboard</a>
                 <ul class="dropdown-menu">
                     <li ng-repeat="choice in items">
@@ -32,24 +33,59 @@
                     </li>
                 </ul>
 
-            </li>
-
+          </li>
 
           <li ng-class="{ active: $state.includes('about') }"><a ui-sref="about">About</a></li>
         </ul>
 
 
-          <div class="btn-group pull-right" ng-controller="AuthenticationCtrl">
-              <button type="button" class="btn" ng-click="login()" ng-show="!authentication.accessToken">Login</button>
-              <button type="button" class="btn dropdown-toggle">
-                  <span class="caret"></span>
-              </button>
-              <ul class="dropdown-menu">
-                  <li><a ui-sref="profile">Profile</a></li>
-                  <li class="divider"></li>
-                  <li><a ng-click="logout()">Logout</a></li>
+
+        <div ng-controller="AuthenticationCtrl" ng-show="!authentication.accessToken">
+          <ul class="nav pull-right">
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" ng-click="login()">
+                Login
+              </a>
+            </li>
+          </ul>
+
+        </div>
+
+        <div ng-controller="AuthenticationCtrl" ng-show="authentication.accessToken">
+          <ul class="nav pull-right">
+            <li id="fat-menu" class="dropdown">
+              <a href="#" id="drop3" class="dropdown-toggle" data-toggle="dropdown">
+                {{profile.name}}
+                <b class="caret"></b>
+              </a>
+
+              <ul class="dropdown-menu" role="menu" aria-labelledby="drop3">
+                <li role="presentation">
+                  <a href="#" role="menuitem" tabindex="1" ui-sref="profile">Profile</a>
+                </li>
+                <li role="presentation">
+                  <a href="#" role="menuitem" tabindex="2" ng-click="logout()">Logout</a>
+                </li>
               </ul>
-          </div>
+
+
+            </li>
+          </ul>
+
+        </div>
+
+
+          <!--<div class="btn-group pull-right" ng-controller="AuthenticationCtrl">-->
+              <!--<button type="button" class="btn" ng-click="login()" ng-show="!authentication.accessToken">Login</button>-->
+              <!--<button type="button" class="btn dropdown-toggle">-->
+                  <!--<span class="caret"></span>-->
+              <!--</button>-->
+              <!--<ul class="dropdown-menu">-->
+                  <!--<li><a ui-sref="profile">Profile</a></li>-->
+                  <!--<li class="divider"></li>-->
+                  <!--<li><a ng-click="logout()">Logout</a></li>-->
+              <!--</ul>-->
+          <!--</div>-->
 
 
 
