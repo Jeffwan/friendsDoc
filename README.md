@@ -26,7 +26,7 @@ Facebook SDK, AngularJS, D3(Web Data Visualization), HTML5 Boilerplate
 
 ## Group members and Responsibility
 
-Wang Huan:     dsadsadsa
+Wang Huan:
 * User study
 * Website wireframe
 * User interaction design
