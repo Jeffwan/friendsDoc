@@ -7,7 +7,7 @@
  */
 
 angular.module('myApp.controllers')
-    .controller('DashboardCtrl',['$scope','$state',function($scope,$state) {
+    .controller('DashboardCtrl',['$scope','$state','$modal','$log',function($scope,$state,$modal,$log) {
         $scope.carememost = function() {
            $state.go('care-me-most');
         }
@@ -32,4 +32,26 @@ angular.module('myApp.controllers')
             $state.go('mutualfriends');
         }
 
+        $scope.open = function () {
+            var modalInstance = $modal.open({
+                templateUrl: 'templates/privacymodal.html',
+                controller: 'ModalInstanceCtrl'
+            });
+        };
+
     }])
+
+    .controller('ModalInstanceCtrl',['$scope','$modalInstance',function($scope,$modalInstance) {
+        $scope.ok = function () {
+//            $modalInstance.close();
+            $modalInstance.dismiss('ok');
+        };
+
+        $scope.cancel = function () {
+            $modalInstance.dismiss('cancel');
+        };
+
+    }])
+
+
+
