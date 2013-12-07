@@ -14,15 +14,10 @@ angular.module('myApp.routes', ['ui.router'])
                 url: '/',
                 templateUrl: 'templates/home.html'
             })
+
             .state("profile", {
                 url:'/profile',
                 templateUrl:'templates/profile.html'
-            })
-
-            .state("functionality", {
-                url:'',
-                templateUrl:'templates/functionality.html',
-                controller:'FunctionalityCtrl'
             })
 
             .state('sex',{
