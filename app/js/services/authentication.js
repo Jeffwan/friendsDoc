@@ -16,26 +16,35 @@
 // In this case it is a simple value service.
 angular.module('myApp.services')
     // A RESTful factory for retreiving contacts from 'contacts.json'
-    .factory('authentication', ['$rootScope','$q','Facebook','$state', function ($rootScope, $q, Facebook, $state) {
-        $rootScope.profile = {};
+    .factory('authentication', ['$rootScope','$q','Facebook','$state', '$store',
+        function ($rootScope, $q, Facebook, $state, $store) {
+            $rootScope.profile = {};
 
-        //declare facebook permissions in login process
-        var permissions ={
-            scope:'user_friends, user_photos, read_stream, export_stream, friends_photos, friends_hometown, friends_location'
-        }
+            // use localStorage to store accessToken and user profile
+            $store.bind($rootScope, 'authentication.accessToken');
+            $store.bind($rootScope, 'profile');
 
-        function login () {
-            Facebook.login(function(response) {
-                if (response.status == 'connected') {
-                    $rootScope.authentication = response.authResponse;
-                    $rootScope.logged = true;
-                    getMe();
-                    getFriendsPictures();
-                    $state.go('dashboard');
-                }
-            }, permissions);
+            //declare facebook permissions in login process
+            var permissions ={
+                scope:'user_friends, user_photos, read_stream, export_stream, friends_photos, friends_hometown, friends_location'
+            }
 
-            // redirect to dashboard page
+            function login () {
+                Facebook.login(function(response) {
+                    if (response.status == 'connected') {
+                        $rootScope.authentication = response.authResponse;
+                        $rootScope.logged = true;
+
+                        // can not put here -- should bind at first
+                        // $store.bind($rootScope, 'authentication.accessToken');
+                        console.log(response.authResponse);
+                        getMe();
+                        getFriendsPictures();
+                        $state.go('dashboard');
+                    }
+                }, permissions);
+
+                // redirect to dashboard page
 
         };
 
@@ -46,7 +55,13 @@ angular.module('myApp.services')
                     $rootScope.authentication = null;
                     $rootScope.logged = false;
                     $rootScope.profile = {};
+
+                    $store.remove($rootScope, 'authentication.accessToken');
+                    $store.remove($rootScope, 'profile');
+
                     $state.go('home');
+
+//                    $store.remove('authentication');
                 })
             });
         };
