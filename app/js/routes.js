@@ -12,7 +12,23 @@ angular.module('myApp.routes', ['ui.router'])
         $stateProvider
             .state("home", {
                 url: '/',
-                templateUrl: 'templates/home.html'
+                templateUrl: 'templates/home.html',
+                onEnter: function($modal) {
+                    var modalInstance = $modal.open({
+                        templateUrl: 'templates/privacymodal.html',
+                        controller: ['$scope','$modalInstance',function($scope,$modalInstance) {
+                            $scope.ok = function () {
+                                // $modalInstance.close();
+                                $modalInstance.dismiss('ok');
+                            };
+
+                            $scope.cancel = function () {
+                                $modalInstance.dismiss('cancel');
+                            };
+
+                        }]
+                    });
+                }
             })
 
             .state("profile", {
@@ -152,11 +168,15 @@ angular.module('myApp.routes', ['ui.router'])
 
     }])
 
-    .controller('CareMeMost', ['$scope', 'feedsList', 'me', 'utils' ,function($scope,feedsList,me,utils){
+    .controller('CareMeMost', ['$scope', 'feedsList', 'me', 'utils', '$rootScope',function($scope,feedsList,me,utils,$rootScope){
+//        $store.bind($scope,'result');
+//        $store.bind($scope,'pictures');
+//        console.log($rootScope.friendsPicture);
+
         $scope.feeds = feedsList.data ;
         $scope.profile = me;
         $scope.count = {}
-        console.log(feedsList.data);
+//        console.log(feedsList.data);   // all feeds and comments, some of them are invalid
         for (var x in feedsList.data) {
             if (feedsList.data[x].comments) {
 
@@ -193,7 +213,7 @@ angular.module('myApp.routes', ['ui.router'])
                 }
             }
         }
-        console.log($scope.count);
+//        console.log($scope.count);
         $scope.result = utils.hashSortbyValue($scope.count);
         $scope.pictures = utils.searchPicture($scope.result,$scope.friendsPicture.friends.data);
 
@@ -228,17 +248,13 @@ angular.module('myApp.routes', ['ui.router'])
         }
 
         // here we should handle the hash, sort it , get the first 5.
-
         $scope.result = utils.hashSortbyValue($scope.count);
-
-//        console.log($scope.result);
-
-
         $scope.pictures = utils.searchPicture($scope.result, $scope.friendsPicture.friends.data);
+        //        console.log($scope.result);
 
     }])
 
-    .controller('NetworkmapCtrl', ['$scope','friendsList','utils', function($scope,friendsList,utils){
+    .controller('NetworkmapCtrl', ['$scope','friendsList','utils','$store', function($scope,friendsList,utils,$store){
         $scope.count={};
 
         for(var x in friendsList.data){
@@ -312,22 +328,22 @@ angular.module('myApp.routes', ['ui.router'])
                 }
 
                 if(i === basicFriends.length -1) {
-                    console.log('hehe');
+                    // console.log('hehe');
                     graphFriends($scope.friends, $scope.friendsLink);
                 }
             }
 
-//            console.log($scope.friends);
-//            console.log($scope.friendsLink);
+            // console.log($scope.friends);
+            // console.log($scope.friendsLink);
 
             function graphFriends(friends, friendlinks) {
                 // Configures a d3 force-directed graph of friends and friend links.
                 document.getElementById('load-status').innerHTML = ''
 
                 // Set dimensions of svg
-                // innerWidth get self window width and length
-                var width = window.innerWidth - 100,
-                    height = window.innerHeight - 100;
+                // innerWidth get self window width and length -- here, the window means the all browser window
+                var width = window.innerWidth /2 + 150,
+                    height = window.innerHeight /2 + 150;
 
                 // Set up a 10-color scale for node colors
                 var color = d3.scale.category20();
@@ -341,7 +357,7 @@ angular.module('myApp.routes', ['ui.router'])
                 // Set the initial parameters of the force() layout
                 var force = d3.layout.force()
                     .charge(-100)
-                    .linkDistance(60)
+                    .linkDistance(50)
                     .size([width, height]);
 
                 // Add svg and start visualization

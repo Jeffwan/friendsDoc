@@ -50,7 +50,7 @@ angular.module('myApp.services')
             var  deferred = $q.defer();
 
             Facebook.api('me/posts?fields=comments.fields(from,message),likes,id,message&limit=100&with=comments',function(response) {
-                console.log(response);
+//                console.log(response);
                 if(response) {
                     deferred.resolve(response);
                 } else {
@@ -105,7 +105,7 @@ angular.module('myApp.services')
 
             Facebook.api('/me?fields=friends.fields(id,name,mutualfriends)',function(response) {
                 if(response.friends) {
-                    console.log(response.friends);
+//                    console.log(response.friends);
                     deferred.resolve(response.friends);
                 } else {
                     // error handling

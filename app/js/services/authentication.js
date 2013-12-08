@@ -23,6 +23,7 @@ angular.module('myApp.services')
             // use localStorage to store accessToken and user profile
             $store.bind($rootScope, 'authentication.accessToken');
             $store.bind($rootScope, 'profile');
+            $store.bind($rootScope, 'friendsPicture')
 
             //declare facebook permissions in login process
             var permissions ={
