@@ -5,8 +5,8 @@
     <slide ng-repeat="slide in slides" active="slide.active">
       <img class="img-rounded" ng-src="{{slide.image}}" style="margin:auto;">
       <div class="carousel-caption">
-        <h4>Slide {{$index}}</h4>
-        <p>{{slide.text}}</p>
+        <h4>{{slide.caption}}</h4>
+        <p>{{slide.text}}<p>
       </div>
     </slide>
   </carousel>

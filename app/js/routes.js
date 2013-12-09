@@ -345,6 +345,8 @@ angular.module('myApp.routes', ['ui.router'])
                 var width = window.innerWidth /2 + 150,
                     height = window.innerHeight /2 + 150;
 
+                console.log(height)
+
                 // Set up a 10-color scale for node colors
                 var color = d3.scale.category20();
 
