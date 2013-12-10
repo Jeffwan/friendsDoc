@@ -5,20 +5,24 @@ angular.module('myApp.controllers')
     $scope.myInterval = 5000;
     $scope.slides = [
         {
-            image: 'http://2.bp.blogspot.com/-vxx3qRD0-3g/Tq81Im7OvqI/AAAAAAAAKPA/CW6_bj4I8GI/s1600/009.JPG',
-            text: 'first photo'
+            image: 'img/care_me_most.jpg',
+            caption:'Care me most',
+            text: 'Someone may always pay attention to everything that you posted and leave a comment.'
         },
         {
-            image: 'http://www.google.com/hostednews/afp/media/ALeqM5gqtw_XHhAKVrqWoxOoQYEfcw1UqA?size=s3',
-            text: 'second photo'
+            image: 'img/gals_before_pals.jpg',
+            caption:'Gals before pals?',
+            text: 'Are you "Gals before pals" or just too shy to add a heterosexual friend?'
         },
         {
-            image: 'http://2.bp.blogspot.com/-vxx3qRD0-3g/Tq81Im7OvqI/AAAAAAAAKPA/CW6_bj4I8GI/s1600/009.JPG',
-            text: 'third photo'
+            image: 'img/like_me_most.jpg',
+            caption:'Like me most',
+            text: 'Check here and find out your loyal friends!'
         },
         {
-            image: 'http://www.google.com/hostednews/afp/media/ALeqM5gqtw_XHhAKVrqWoxOoQYEfcw1UqA?size=s3',
-            text: 'fourth photo'
+            image: 'img/network.jpg',
+            caption:'Network Map',
+            text: 'Let\'s prove how small this world is!'
         }
     ];
 
