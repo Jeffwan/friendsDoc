@@ -273,9 +273,33 @@ angular.module('myApp.routes', ['ui.router'])
             }
 
         }
-//        console.log($scope.count);
 
         $scope.result = utils.hashSortbyValue($scope.count);
+
+
+        // Use Google Chart here
+        var data = google.visualization.arrayToDataTable(utils.filterCity($scope.result));
+
+        var options_world = {
+            region: 'world',
+            displayMode: 'markers',
+            colorAxis: {colors: ['green', 'blue']}
+        };
+
+//        var options_US = {
+//            region: 'US',
+//            displayMode: 'markers',
+//            colorAxis: {colors: ['green', 'blue']}
+//        };
+
+
+        var chart1 = new google.visualization.GeoChart(document.getElementById('chart_div1'));
+        chart1.draw(data, options_world);
+
+//        var chart2 = new google.visualization.GeoChart(document.getElementById('chart_div2'));
+//        chart2.draw(data, options_US);
+
+
     }])
 
     .controller('MutualFriendsCtrl',['$scope','mutualFriends','basicFriends', 'utils',

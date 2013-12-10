@@ -45,11 +45,25 @@ angular.module('myApp.services', ['facebook'])
             return result;
         }
 
+        function filterCity(cityArray) {
+
+            for (var i=0; i< cityArray.length; i++) {
+              var index = cityArray[i][0].indexOf(",");
+              cityArray[i][0] = cityArray[i][0].substr(0,index);
+            }
+
+            // use unshift instead of push to push this Arrary to the first index
+            cityArray.unshift(["City","Population"]);
+
+            return cityArray;
+        }
+
 
         return {
             hashSortbyValue: hashSortbyValue,
             removeSelf: removeSelf,
-            searchPicture:searchPicture
+            searchPicture:searchPicture,
+            filterCity:filterCity
         }
 
     }])
