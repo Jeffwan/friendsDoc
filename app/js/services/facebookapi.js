@@ -66,7 +66,7 @@ angular.module('myApp.services')
          */
         function getFriendsBasic() {
             var deferred = $q.defer();
-            Facebook.api('/me?fields=friends.fields(id,name)', function(response) {
+            Facebook.api('/me?fields=friends.fields(id,name,picture)', function(response) {
                 if(response.friends) {
 //                    result = {'male': male, 'female': female , 'total': response.friends.data.length}
 //                    deferred.resolve(result);

@@ -309,9 +309,10 @@ angular.module('myApp.routes', ['ui.router'])
                 }
             }
 
-            function showName(d) {
+            function showFriendInfo(d) {
                 // Displays given d3 node's 'name' attribute.
                 document.getElementById('selected-friend-name').innerHTML = d['name'];
+                document.getElementById('selected-friend-photo').setAttribute('src',d['picture']['data']['url']);
             }
 
 
@@ -336,7 +337,6 @@ angular.module('myApp.routes', ['ui.router'])
                 }
 
                 if(i === basicFriends.length -1) {
-                    // console.log('hehe');
                     graphFriends($scope.friends, $scope.friendsLink);
                 }
             }
@@ -396,7 +396,7 @@ angular.module('myApp.routes', ['ui.router'])
                     .attr("r", function(d) { return r(d.value); })
                     .style("stroke", "rgba(200, 200, 200, 0.2)")
                     .style("fill", function(d) { return color(d.value); })
-                    .on("mouseover", function(d) { showName(d); })
+                    .on("mouseover", function(d) { showFriendInfo(d); })
                     .call(force.drag);
 
                 force.on("tick", function() {
