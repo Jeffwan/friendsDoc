@@ -12,23 +12,7 @@ angular.module('myApp.routes', ['ui.router'])
         $stateProvider
             .state("home", {
                 url: '/',
-                templateUrl: 'templates/home.html',
-                onEnter: function($modal) {
-                    var modalInstance = $modal.open({
-                        templateUrl: 'templates/privacymodal.html',
-                        controller: ['$scope','$modalInstance',function($scope,$modalInstance) {
-                            $scope.ok = function () {
-                                // $modalInstance.close();
-                                $modalInstance.dismiss('ok');
-                            };
-
-                            $scope.cancel = function () {
-                                $modalInstance.dismiss('cancel');
-                            };
-
-                        }]
-                    });
-                }
+                templateUrl: 'templates/home.html'
             })
 
             .state("profile", {

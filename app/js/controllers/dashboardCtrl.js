@@ -32,26 +32,9 @@ angular.module('myApp.controllers')
             $state.go('mutualfriends');
         }
 
-        $scope.open = function () {
-            var modalInstance = $modal.open({
-                templateUrl: 'templates/privacymodal.html',
-                controller: 'ModalInstanceCtrl'
-            });
-        };
-
     }])
 
-    .controller('ModalInstanceCtrl',['$scope','$modalInstance',function($scope,$modalInstance) {
-        $scope.ok = function () {
-//            $modalInstance.close();
-            $modalInstance.dismiss('ok');
-        };
 
-        $scope.cancel = function () {
-            $modalInstance.dismiss('cancel');
-        };
-
-    }])
 
 
 
