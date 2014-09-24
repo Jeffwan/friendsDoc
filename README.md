@@ -1,4 +1,4 @@
-# FriendsDoc [website](http://friendsdoc.herokuapp.com/app/index.html#/)
+# FriendsDoc [Click here to play with the application](http://friendsdoc.herokuapp.com/app/index.html#/)
 
 ## Background
 
