@@ -1,4 +1,4 @@
-# FriendsDoc
+# FriendsDoc [website](http://friendsdoc.herokuapp.com/app/index.html#/)
 
 ## Background
 
