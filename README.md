@@ -1,4 +1,5 @@
-# FriendsDoc [Click here to play with the application](http://friendsdoc.herokuapp.com/app/index.html#/)
+# FriendsDoc
+[Click here to play with the application](http://friendsdoc.herokuapp.com/app/index.html#/)
 
 ## Background
 
@@ -21,10 +22,14 @@ results to Facebook. Rough Function List are as follows( continuously update dep
 
 ## Techs
 
-Facebook SDK, AngularJS, D3(Web Data Visualization), HTML5 Boilerplate
+Facebook SDK, AngularJS(UI-Bootstrap, UI-router), D3(Web Data Visualization), Google Chart, BootStrap, local storage
 
 
 ## Group members and Responsibility
+
+Shan Jiaxin:
+* Website Architecture
+* Module coding
 
 Wang Huan:
 * User study
@@ -37,27 +42,51 @@ Hao Yaxian:
 * Algorithm Design
 
 
-Shan Jiaxin:
-* Website Architecture
-* Module coding
+## Uber related
+This app focus on front-end works, since we find the solution to make it without any backend or database works.
+There's only a node server running on backend, and all the other computing and data visualization works handled by
+angular, FB Graph API is the data source.
 
+Trade off:
+We use local storage instead of database to store user information, the user accessToken will be stored there.
+In addition, I all cache some friends picture there since most of the functions will use that and it avoid retrieving it
+all the time.
 
+Improvements:
+1. Optimize some algorithm to make computing faster.
+2. May add some backend functions on nodeJS to boost the performance because Facebook Graph API I think will have rate limit,
+I can cache API query result for user. Next time, We just visit cache to retrieve data.
+3. Improve test coverage
+
+Jiaxin's contribution:
+I come up this idea and hire my teammates in my class. I contribute most of the codes (80%) and manage our project from
+version control, wiki sharing and bug management perspective on github.
+
+Other projects I am proud of (Uber may know more of me)
+[Relative Care](https://github.com/Jeffwan/RelativeCare)
+[Slides](https://docs.google.com/presentation/d/1UI9bUen22pBwlIPlwHGimwiphbfJuMX4Sea1ZacGn-I/edit?usp=sharing)
 
 ## How to start the app
 
 Clone the friends repository and start hacking...
+(Since I have my facebook app token configured for heroku domain, we can't play with it,
+you should create your own token)
 
+### Running the app on Heroku
+[Heroku link](http://friendsdoc.herokuapp.com/app/index.html#/)
+The most interesting part is Network Map, Try it! You can drag nodes on screen!
 
 ### Running the app during development
 
 You can pick one of these options:
 * serve this repository with your webserver
-* install node.js and run `scripts/web-server.js`
+* install node.js and run `node web.js`
 
 Then navigate your browser to `http://localhost:<port>/app/index.html` to see the app running in
 your browser.
 
 
+(Since limited time for this project, test will be added later)
 ### Running unit tests
 
 I will use [jasmine](http://pivotal.github.com/jasmine/) and
@@ -110,16 +139,7 @@ info.
         services/       --> custom Angular services
         app.js          --> Angular application bootstrap
       lib/              --> angular and 3rd party javascript libraries
-        angular/
-          angular.js        --> the latest angular js
-          angular.min.js    --> the latest minified angular js
-          angular-*.js      --> angular add-on modules
-          version.txt       --> version number
-        bootstrap/
-          bootstrap.js      --> bootstrap js file for some componets
-        jquery/
-          jquery-1.10.2.js  --> lastest jquery source library
-      templates/            --> angular view partials (partial html templates)
+      views/            --> angular view partials (partial html templates)
         partial1.html
         partial2.html
 
@@ -132,6 +152,19 @@ info.
       test.bat          --> autotests unit tests with Karma (windows)
       test.sh           --> autotests unit tests with Karma (*nix)
       web-server.js     --> simple development webserver based on node.js
+
+    public/                   --> bower lib folder
+      components/
+        angular               --> Core angular libs
+        angular-bootstrap     --> Native AngularJS directives based on Bootstrap's markup and CSS
+        angular-facebook      --> Facebook API wrapper
+        angular-ui-bootstrap  --> Angular directives specific to Bootstrap
+        angular-ui-router     --> Angular states UI-Router
+        bootstrap             --> Bootstrap js file for some components
+        bootstrap-css         --> css style
+        d3                    --> data visualization lib
+        jquey                 --> jquery source library
+        nvd3                  --> data visualization lib
 
     test/               --> test source files and libraries
       e2e/              -->
