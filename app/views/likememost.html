@@ -22,43 +22,11 @@
         <h4>Go to these friends and give them a big hug!</h4>
 
         <div class="container main">
-          <div class="ranking center-block">
-            <span class="badge badge-info">1</span>
-            <img class="img-circle" src={{pictures[0]}}>
-            <span>{{result[0][0]}}</span>
+          <div class="ranking center-block" ng-repeat="(key, value) in results">
+            <img class="img-circle" src={{value}}>
+            <span>{{key}}</span>
           </div>
-
-          <div class="ranking center-block">
-            <span class="badge badge-info">2</span>
-            <img class="img-circle" src={{pictures[1]}}>
-            <span>{{result[1][0]}}</span>
-          </div>
-
-
-          <div class="ranking center-block">
-            <span class="badge badge-info">3</span>
-            <img class="img-circle" src={{pictures[2]}}>
-            <span>{{result[2][0]}}</span>
-          </div>
-
-          <div class="ranking center-block">
-            <span class="badge badge-info">4</span>
-            <img class="img-circle" src={{pictures[3]}}>
-            <span>{{result[3][0]}}</span>
-          </div>
-
-          <div class="ranking center-block">
-            <span class="badge badge-info">5</span>
-            <img class="img-circle" src={{pictures[4]}}>
-            <span>{{result[4][0]}}</span>
-          </div>
-
-          <div class="ranking center-block">
-            <span class="badge badge-info">6</span>
-            <img class="img-circle" src={{pictures[5]}}>
-            <span>{{result[5][0]}}</span>
-          </div>
-
         </div>
+
     </div>
 </div>

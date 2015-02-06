@@ -105,36 +105,8 @@
   </div>
 
 
-  <!--  comment debugging codes
-  <hr>
-    <pre>
-      $state = {{$state.current.name}}
-      $stateParams = {{$stateParams}}
-      $state full url = {{ $state.$current.url.source }}
-      profile.name = {{ profile.name }}
-
-    </pre>
-
-  <div id='fb-root'></div>
-
-  <div ng-controller="AuthenticationCtrl">
-    <button class="btn" ng-click="login()">Login</button>
-    <button class="btn" ng-click="getLoginStatus()">getLoginStatus</button>
-    <button class="btn" ng-click="getMe()">getMe</button>
-
-
-    <div ng-show="authentication.accessToken">
-      <h4>Access Token:</h4>
-      <p>{{ authentication.accessToken}}</p>
-      <button class="btn" ng-click="logout()">Logout</button>
-    </div>
-  </div>
-
-  <hr class="soften">
-  -->
 
   <!-- Footer-->
-
   <footer class="footer" ng-controller="FooterCtrl">
       <div class="content">
           <p>Designed and built by students at University of Pittsburgh<a href="https://www.facebook.com/profile.php?id=100004203151344&fref=ts" target="_blank">@Jiaxin Shan</a>, <a href="https://www.facebook.com/yaxianhao" target="_blank">@Yaxian Hao</a> and <a href="https://www.facebook.com/huan.wang.52" target="_blank">@Huan Wang</a>.</p>
@@ -145,12 +117,9 @@
           </ul>
       </div>
   </footer>
+
   <!-- At the privacy link and terms we can have a page to declare our privacy agreements.-->
   <!-- End of Footer-->
-
-  <!-- In production use:
-  <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular.min.js"></script>
-  -->
 
   <!--Google Map Chart-->
   <script type='text/javascript' src='https://www.google.com/jsapi'></script>
@@ -161,7 +130,7 @@
   <script src="lib/angularUI/angular-ui-router.js"></script>
   <!--<script src="../public/components/angular-ui-router/lib/angular-1.0.6.js"></script>-->
   <script src="../public/components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
-  <script src="../public/components/angular-facebook/angular-facebook.js"></script>
+  <script src="../public/components/angular-facebook/lib/angular-facebook.js"></script>
   <!--sex chart-->
   <script src="../public/components/d3/d3.v2.min.js"></script>
   <script src="../public/components/nvd3/nv.d3.min.js"></script>

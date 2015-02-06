@@ -5,24 +5,33 @@
 angular.module('myApp.routes', ['ui.router'])
     .config(['$stateProvider','$urlRouterProvider',function($stateProvider,$urlRouterProvider){
         $urlRouterProvider
-
             .otherwise('/');
-
 
         $stateProvider
             .state("home", {
                 url: '/',
-                templateUrl: 'templates/home.html'
+                templateUrl: 'views/home.html'
+            })
+
+            .state('about', {
+                url: '/about',
+                templateUrl: 'views/about.html'
             })
 
             .state("profile", {
                 url:'/profile',
-                templateUrl:'templates/profile.html'
+                templateUrl:'views/profile.html'
+            })
+
+            .state('dashboard', {
+                url: '/dashboard',
+                templateUrl: 'views/dashboard.html',
+                controller:"DashboardCtrl"
             })
 
             .state('sex',{
                 url: '/sex',
-                templateUrl: 'templates/sex.html',
+                templateUrl: 'views/sex.html',
                 controller: 'SexCtrl',
                 resolve: {
                     friendsList:['facebookAPI',function(facebookAPI) {
@@ -31,20 +40,9 @@ angular.module('myApp.routes', ['ui.router'])
                 }
             })
 
-            .state('about', {
-                url: '/about',
-                templateUrl: 'templates/about.html'
-            })
-
-            .state('dashboard', {
-                url: '/dashboard',
-                templateUrl: 'templates/dashboard.html',
-                controller:"DashboardCtrl"
-            })
-
             .state('care-me-most', {
                 url: '/care-me-most',
-                templateUrl: 'templates/carememost.html',
+                templateUrl: 'views/carememost.html',
                 controller:'CareMeMost',
                 resolve: {
                     feedsList:['facebookAPI',function(facebookAPI) {
@@ -57,7 +55,7 @@ angular.module('myApp.routes', ['ui.router'])
             })
             .state('like-me-most', {
                 url: '/like-me-most',
-                templateUrl: 'templates/likememost.html',
+                templateUrl: 'views/likememost.html',
                 controller:'LikeMeMost',
                 resolve: {
                     feedsList:['facebookAPI',function(facebookAPI) {
@@ -67,7 +65,7 @@ angular.module('myApp.routes', ['ui.router'])
             })
             .state('narcissistic', {
                 url: '/narcissistic',
-                templateUrl: 'templates/narcissistic.html',
+                templateUrl: 'views/narcissistic.html',
                 controller: 'NarcissisticCtrl',
                 resolve: {
                     friendsAlbums: ['facebookAPI', function(facebookAPI) {
@@ -77,7 +75,7 @@ angular.module('myApp.routes', ['ui.router'])
             })
             .state('networkmap',{
                 url:'/networkmap',
-                templateUrl:'templates/networkmap.html',
+                templateUrl:'views/networkmap.html',
                 controller:'NetworkmapCtrl',
                 resolve:{
                     friendsList:['facebookAPI',function(facebookAPI) {
@@ -87,7 +85,7 @@ angular.module('myApp.routes', ['ui.router'])
             })
             .state('mutualfriends', {
                 url:'/mutualfriends',
-                templateUrl:'templates/mutualfriends.html',
+                templateUrl:'views/mutualfriends.html',
                 controller:'MutualFriendsCtrl',
                 resolve: {
                     mutualFriends :['facebookAPI', function(facebookAPI) {
@@ -140,7 +138,7 @@ angular.module('myApp.routes', ['ui.router'])
 
             d3.select("#sexratio")
                 .datum(sexRatio)
-                .transition().duration(1200)
+                .transition().duration(1200) // there's no duration now?
                 .attr('width', width)
                 .attr('height', height)
                 .call(chart);
@@ -152,20 +150,14 @@ angular.module('myApp.routes', ['ui.router'])
 
     }])
 
-    .controller('CareMeMost', ['$scope', 'feedsList', 'me', 'utils', '$rootScope',function($scope,feedsList,me,utils,$rootScope){
-//        $store.bind($scope,'result');
-//        $store.bind($scope,'pictures');
-//        console.log($rootScope.friendsPicture);
-
+    .controller('CareMeMost', ['$scope', 'feedsList', 'me', 'utils',function($scope,feedsList,me,utils){
         $scope.feeds = feedsList.data ;
         $scope.profile = me;
         $scope.count = {}
-//        console.log(feedsList.data);   // all feeds and comments, some of them are invalid
         for (var x in feedsList.data) {
             if (feedsList.data[x].comments) {
 
                 for (var i in feedsList.data[x].comments.data) {
-//                    console.log(feedsList.data[x].comments.data[i]);
                     if ($scope.count[feedsList.data[x].comments.data[i].from.name]) {
                         $scope.count[feedsList.data[x].comments.data[i].from.name] ++;
                     } else {
@@ -175,20 +167,23 @@ angular.module('myApp.routes', ['ui.router'])
             }
         }
 
-        $scope.result = utils.removeSelf($scope.profile.name, utils.hashSortbyValue($scope.count));
-        $scope.pictures = $scope.pictures = utils.searchPicture($scope.result,$scope.friendsPicture.friends.data);
+        $scope.names = utils.removeSelf($scope.profile.name, utils.hashSortbyValue($scope.count));
+        $scope.pictures = utils.searchPicture($scope.names,$scope.friendsPicture.friends.data);
 
+        $scope.results = {};
+        for (var i = 0; i < 6; i++) {
+            $scope.results[$scope.names[i]] = $scope.pictures[i];
+        }
 
     }])
 
-    .controller('LikeMeMost', ['$scope', 'feedsList', 'utils', function($scope,feedsList,utils){
+    .controller('LikeMeMost', ['$scope', 'feedsList', 'utils', '$log', function($scope,feedsList,utils, $log){
         $scope.feeds = feedsList.data ;
         $scope.count = {}
 
         for (var x in feedsList.data) {
             if (feedsList.data[x].likes) {
                 for (var i in feedsList.data[x].likes.data) {
-  //                  console.log(feedsList.data[x].comments.data[i]);
                     if ($scope.count[feedsList.data[x].likes.data[i].name]) {
                         $scope.count[feedsList.data[x].likes.data[i].name] ++;
                     } else {
@@ -197,9 +192,16 @@ angular.module('myApp.routes', ['ui.router'])
                 }
             }
         }
-//        console.log($scope.count);
-        $scope.result = utils.hashSortbyValue($scope.count);
-        $scope.pictures = utils.searchPicture($scope.result,$scope.friendsPicture.friends.data);
+
+
+        $scope.names = utils.hashSortbyValue($scope.count);
+        $scope.pictures = utils.searchPicture($scope.names,$scope.friendsPicture.friends.data);
+
+        console.log($scope.names);
+        $scope.results = {};
+        for (var i = 0; i < 6; i++) {
+            $scope.results[$scope.names[i]] = $scope.pictures[i];
+        }
 
     }])
 
@@ -221,7 +223,6 @@ angular.module('myApp.routes', ['ui.router'])
             if (friendsAlbums.data[x].albums) {
                 for (var i=0;  i<5 ; i++) {
                     if (friendsAlbums.data[x].albums.data[i]) {
-//                        console.log(friendsAlbums.data[x].albums.data[i].name);
                         if (friendsAlbums.data[x].albums.data[i].name == "Profile Pictures") {
                             $scope.count[friendsAlbums.data[x].name] = friendsAlbums.data[x].albums.data[i].count;
 
@@ -231,11 +232,13 @@ angular.module('myApp.routes', ['ui.router'])
             }
         }
 
-        // here we should handle the hash, sort it , get the first 5.
-        $scope.result = utils.hashSortbyValue($scope.count);
-        $scope.pictures = utils.searchPicture($scope.result, $scope.friendsPicture.friends.data);
-        //        console.log($scope.result);
+        $scope.names = utils.hashSortbyValue($scope.count);
+        $scope.pictures = utils.searchPicture($scope.names, $scope.friendsPicture.friends.data);
 
+        $scope.results = {};
+        for (var i = 0; i < 6; i++) {
+            $scope.results[$scope.names[i]] = $scope.pictures[i];
+        }
     }])
 
     .controller('NetworkmapCtrl', ['$scope','friendsList','utils','$store', function($scope,friendsList,utils,$store){
@@ -270,19 +273,8 @@ angular.module('myApp.routes', ['ui.router'])
             colorAxis: {colors: ['green', 'blue']}
         };
 
-//        var options_US = {
-//            region: 'US',
-//            displayMode: 'markers',
-//            colorAxis: {colors: ['green', 'blue']}
-//        };
-
-
         var chart1 = new google.visualization.GeoChart(document.getElementById('chart_div1'));
         chart1.draw(data, options_world);
-
-//        var chart2 = new google.visualization.GeoChart(document.getElementById('chart_div2'));
-//        chart2.draw(data, options_US);
-
 
     }])
 
@@ -293,10 +285,6 @@ angular.module('myApp.routes', ['ui.router'])
             $scope.friends = basicFriends;
             $scope.friendsLink = []
 
-//            for (var i=0; i <mutualFriends.length; i++) {
-//                $scope.friends[i].id = mutualFriends.data[i].id;
-//                $scope.friends[i].name = mutualFriends.data[i].name;
-//            }
 
             // return people $index in array
             function indexWithAttribute(array, attr, value) {
@@ -340,9 +328,6 @@ angular.module('myApp.routes', ['ui.router'])
                     graphFriends($scope.friends, $scope.friendsLink);
                 }
             }
-
-            // console.log($scope.friends);
-            // console.log($scope.friendsLink);
 
             function graphFriends(friends, friendlinks) {
                 // Configures a d3 force-directed graph of friends and friend links.
