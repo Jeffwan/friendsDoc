@@ -9,7 +9,7 @@ angular.module('myApp.directives', []).
         return {
             replace:true,
             restrict:'E',
-            templateUrl:'templates/node.html',
+            templateUrl:'views/node.html',
             link:function (scope, elem, attr, ctrl) {
                 if (scope.$last === true) {
                     scope.renderComplete();

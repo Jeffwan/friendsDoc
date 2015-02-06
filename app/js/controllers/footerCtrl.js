@@ -4,7 +4,7 @@ angular.module('myApp.controllers')
         // function open modal
         $scope.openModal = function () {
             var modalInstance = $modal.open({
-                templateUrl: 'templates/privacymodal.html',
+                templateUrl: 'views/privacymodal.html',
                 controller: ['$scope','$modalInstance',function($scope,$modalInstance) {
                                 $scope.ok = function () {
                                     // $modalInstance.close();

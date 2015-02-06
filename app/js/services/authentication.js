@@ -44,9 +44,6 @@ angular.module('myApp.services')
                         $state.go('dashboard');
                     }
                 }, permissions);
-
-                // redirect to dashboard page
-
         };
 
         function logout() {
@@ -61,8 +58,6 @@ angular.module('myApp.services')
                     $store.remove($rootScope, 'profile');
 
                     $state.go('home');
-
-//                    $store.remove('authentication');
                 })
             });
         };
@@ -71,14 +66,12 @@ angular.module('myApp.services')
             var deferred = $q.defer();
             Facebook.getLoginStatus(function(response) {
                 deferred.resolve(response);
-            // return here or at last step
             })
             return deferred.promise;
         };
 
         function getMe() {
             var deferred = $q.defer();
-//            Facebook.api('/me', function(response) {
             Facebook.api('/me?fields=hometown,education,name,location,gender,picture', function(response) {
                 $rootScope.$apply(function(){
                     $rootScope.profile = response;
@@ -107,7 +100,5 @@ angular.module('myApp.services')
             getMe: getMe,
             getFriendsPictures:getFriendsPictures
         }
-
-
     }])
 
