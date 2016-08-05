@@ -7,5 +7,9 @@ logs/*
 *.iws
 .idea/
 
-
+# MacOS file
 .DS_Store
+
+# Dependencies
+node_modules/
+bower_components/
