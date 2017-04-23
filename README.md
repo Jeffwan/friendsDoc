@@ -28,52 +28,6 @@ results to Facebook. Rough Function List are as follows( continuously update dep
 Facebook SDK, AngularJS(UI-Bootstrap, UI-router), D3(Web Data Visualization), Google Chart, BootStrap, local storage
 
 
-## Group members and Responsibility
-
-Shan Jiaxin:
-* Website Architecture
-* Module coding
-
-Wang Huan:
-* User study
-* Website wireframe
-* User interaction design
-
-
-Hao Yaxian:
-* Facebook Data Analysis
-* Algorithm Design
-
-
-## Uber related
-This app focus on front-end works, since we find the solution to make it without any backend or database works.
-There's only a node server running on backend, and all the other computing and data visualization works handled by
-angular, FB Graph API is the data source.
-
-*Trade off*:
-
-We use local storage instead of database to store user information, the user accessToken will be stored there.
-In addition, I all cache some friends picture there since most of the functions will use that and it avoid retrieving it
-all the time.
-
-*Improvements*:
-
-1. Optimize some algorithm to make computing faster.
-2. May add some backend functions on nodeJS to boost the performance because Facebook Graph API I think will have rate limit,
-I can cache API query result for user. Next time, We just visit cache to retrieve data.
-3. Improve test coverage
-
-*Jiaxin's contribution*:
-
-I come up this idea and hire my teammates in my class. I contribute most of the codes (80%) and manage our project from
-version control, wiki sharing and bug management perspective on github.
-
-*Other projects I am proud of (Uber may know more of me)*
-
-[Relative Care](https://github.com/Jeffwan/RelativeCare)
-
-[Slides](https://docs.google.com/presentation/d/1UI9bUen22pBwlIPlwHGimwiphbfJuMX4Sea1ZacGn-I/edit?usp=sharing)
-
 ## How to start the app
 
 Clone the friends repository and start hacking...
@@ -111,7 +65,6 @@ or remote browser.
 
 
 ### End to end testing
-
 
 Requires a webserver, node.js + `./scripts/web-server.js` or your backend server that hosts the angular static files.
 
@@ -190,4 +143,3 @@ info.
         directivessSpec.js      --> specs for directives
         filtersSpec.js          --> specs for filters
         servicesSpec.js         --> specs for services
-
