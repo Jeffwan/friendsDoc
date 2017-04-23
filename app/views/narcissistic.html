@@ -1,32 +1,32 @@
 <div class="row-fluid">
-    <div class="span3" ng-controller="DashboardCtrl">
-        <div class="well">
-            <ul class="nav nav-list">
-                <li class="nav-header">Functions</li>
-                <!-- This <li> will only add the 'active' class if 'contacts.detail' or its descendants are active
+  <div class="span3" ng-controller="DashboardCtrl">
+    <div class="well">
+      <ul class="nav nav-list">
+        <li class="nav-header">Functions</li>
+        <!-- This <li> will only add the 'active' class if 'contacts.detail' or its descendants are active
                      AND if it is the link for the active contact (aka contactId) -->
-                <li><a href="" ng-click="carememost()">Care Me Most</a></li>
-                <li><a href="" ng-click="likememost()">Like Me Most</a></li>
-                <li><a href="" ng-click="network()">Friends Map</a></li>
-                <li><a href="" ng-click="sex()">Gals before pals?</a></li>
-                <li><a href="" ng-click="narcissistic()">Narcissistic</a></li>
-                <li><a href="" ng-click="mutualfriends()">Network Map</a></li>
+        <li><a href="" ng-click="carememost()">Care Me Most</a></li>
+        <li><a href="" ng-click="likememost()">Like Me Most</a></li>
+        <li><a href="" ng-click="network()">Friends Map</a></li>
+        <li><a href="" ng-click="sex()">Gals before pals?</a></li>
+        <li><a href="" ng-click="narcissistic()">Narcissistic</a></li>
+        <li><a href="" ng-click="mutualfriends()">Network Map</a></li>
 
-            </ul>
-        </div>
+      </ul>
+    </div>
+  </div>
+
+  <div class="span8 offset1">
+    <h2>Narcissistic</h2>
+    <h4>Some friends of you are not able to conceal </h4>
+    <h4>their narcissism with this proof provided!</h4>
+
+    <div class="container main">
+      <div class="ranking center-block" ng-repeat="(key, value) in results">
+        <img class="img-circle" src={{value}}>
+        <span>{{key}}</span>
+      </div>
     </div>
 
-    <div class="span8 offset1">
-        <h2>Narcissistic</h2>
-        <h4>Some friends of you are not able to conceal </h4>
-        <h4>their narcissism with this proof provided!</h4>
-
-        <div class="container main">
-          <div class="ranking center-block" ng-repeat="(key, value) in results">
-            <img class="img-circle" src={{value}}>
-            <span>{{key}}</span>
-          </div>
-        </div>
-
-    </div>
+  </div>
 </div>

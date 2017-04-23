@@ -7,34 +7,29 @@
  */
 
 angular.module('myApp.controllers')
-    .controller('DashboardCtrl',['$scope','$state','$modal','$log',function($scope,$state,$modal,$log) {
-        $scope.carememost = function() {
-           $state.go('care-me-most');
-        }
+  .controller('DashboardCtrl', ['$scope', '$state', '$modal', '$log', function($scope, $state, $modal, $log) {
+    $scope.carememost = function() {
+      $state.go('care-me-most');
+    }
 
-        $scope.likememost = function() {
-            $state.go('like-me-most');
-        }
+    $scope.likememost = function() {
+      $state.go('like-me-most');
+    }
 
-        $scope.network = function() {
-            $state.go('networkmap');
-        }
+    $scope.network = function() {
+      $state.go('networkmap');
+    }
 
-        $scope.sex = function() {
-            $state.go('sex');
-        }
+    $scope.sex = function() {
+      $state.go('sex');
+    }
 
-        $scope.narcissistic = function() {
-            $state.go('narcissistic');
-        }
+    $scope.narcissistic = function() {
+      $state.go('narcissistic');
+    }
 
-        $scope.mutualfriends = function() {
-            $state.go('mutualfriends');
-        }
+    $scope.mutualfriends = function() {
+      $state.go('mutualfriends');
+    }
 
-    }])
-
-
-
-
-
+  }])

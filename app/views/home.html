@@ -7,34 +7,33 @@
     <hr class="soften">
 
     <!-- carousel start-->
-
     <div ng-controller="CarouselDemoCtrl">
       <carousel interval="myInterval">
         <slide ng-repeat="slide in slides" active="slide.active">
           <img class="img-rounded" ng-src="{{slide.image}}" style="margin:auto;">
           <div class="carousel-caption">
             <h4>{{slide.caption}}</h4>
-            <p>{{slide.text}}<p>
+            <p>{{slide.text}}
+              <p>
           </div>
         </slide>
       </carousel>
     </div>
 
-
     <p class="marketing-byline">Get to know your friends better? No more wait!</p>
     <div class="row-fluid">
       <div class="span4">
-        <img class="img-circle" src="img/circle_facebook.jpg" alt="140*140" style="width:140px; height: 140px"/>
+        <img class="img-circle" src="img/circle_facebook.jpg" alt="140*140" style="width:140px; height: 140px" />
         <h2>Design for whom?</h2>
         <p class="text-center">This web application is designed for those Facebook users who are interested in more detailed interaction with their friends. </p>
       </div>
       <div class="span4">
-        <img class="img-circle" src="img/connection.png" alt="140*140" style="width:140px; height: 140px"/>
+        <img class="img-circle" src="img/connection.png" alt="140*140" style="width:140px; height: 140px" />
         <h2>What to expect?</h2>
         <p class="text-center">Do you curious about who cares you the most? Do you always want to know whether you are "Gals before pals"? How is your net work looks like on the map? FriendsDoc gives you the answer!</p>
       </div>
       <div class="span4">
-        <img class="img-circle" src="img/improvement.png" alt="140*140" style="width:140px; height: 140px"/>
+        <img class="img-circle" src="img/improvement.png" alt="140*140" style="width:140px; height: 140px" />
         <h2>Any improvement?</h2>
         <p class="text-center">We will treasure your any kinds of suggestions a lot. Do not hesitate to contact us if you have creative idea! </p>
       </div>
