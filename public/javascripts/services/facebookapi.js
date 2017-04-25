@@ -1,5 +1,5 @@
 angular.module('myApp.services')
-  .factory('facebookAPI', ['$rootScope', '$q', 'Facebook', function($rootScope, $q, Facebook) {
+  .service('facebookAPI', ['$rootScope', '$q', 'FacebookFactory', function($rootScope, $q, FacebookFactory) {
 
     /**
      *  Function List
@@ -10,7 +10,7 @@ angular.module('myApp.services')
 
     function getMe() {
       var deferred = $q.defer();
-      Facebook.api('/me', function(response) {
+      FacebookFactory.api('/me', function(response) {
         $rootScope.$apply(function() {
           $rootScope.profile = response;
           deferred.resolve(response);
@@ -26,7 +26,7 @@ angular.module('myApp.services')
      */
     function getFriends() {
       var deferred = $q.defer();
-      Facebook.api('/me?fields=friends.fields(id,gender,name,hometown,location)', function(response) {
+      FacebookFactory.api('/me?fields=friends.fields(id,gender,name,hometown,location)', function(response) {
         if (response.friends) {
           deferred.resolve(response.friends);
         } else {
@@ -48,7 +48,7 @@ angular.module('myApp.services')
     function getMyFeeds() {
       var deferred = $q.defer();
 
-      Facebook.api('me/posts?fields=comments.fields(from,message),likes,id,message&limit=100&with=comments', function(response) {
+      FacebookFactory.api('me/posts?fields=comments.fields(from,message),likes,id,message&limit=100&with=comments', function(response) {
         //                console.log(response);
         if (response) {
           deferred.resolve(response);
@@ -65,7 +65,7 @@ angular.module('myApp.services')
      */
     function getFriendsBasic() {
       var deferred = $q.defer();
-      Facebook.api('/me?fields=friends.fields(id,name,picture)', function(response) {
+      FacebookFactory.api('/me?fields=friends.fields(id,name,picture)', function(response) {
         if (response.friends) {
           //                    result = {'male': male, 'female': female , 'total': response.friends.data.length}
           //                    deferred.resolve(result);
@@ -88,9 +88,8 @@ angular.module('myApp.services')
      */
     function getFriendsAlbums() {
       var deferred = $q.defer();
-      Facebook.api('/me/friends?fields=albums.limit(5).fields(count,updated_time,name,type),name,picture', function(response) {
+      FacebookFactory.api('/me/friends?fields=albums.limit(5).fields(count,updated_time,name,type),name,picture', function(response) {
         if (response.data) {
-          console.log(response);
           deferred.resolve(response);
         } else {
           //error handling
@@ -102,7 +101,7 @@ angular.module('myApp.services')
     function getAllMutualFriends() {
       var deferred = $q.defer();
 
-      Facebook.api('/me?fields=friends.fields(id,name,mutualfriends)', function(response) {
+      FacebookFactory.api('/me?fields=friends.fields(id,name,mutualfriends)', function(response) {
         if (response.friends) {
           //                    console.log(response.friends);
           deferred.resolve(response.friends);

@@ -5,7 +5,7 @@ google.load('visualization', '1', {
 
 // Declare app level module which depends on filters, and services
 angular.module('myApp', [
-    'facebook',
+    'ngFacebook',
     'ui.router',
     'myApp.routes',
     'myApp.filters',
@@ -13,14 +13,13 @@ angular.module('myApp', [
     'myApp.directives',
     'myApp.controllers'
   ])
-  .config(['FacebookProvider', function(FacebookProvider) {
-    FacebookProvider.init('229902130507040');
-  }])
+  .run(function($rootScope, $state, $stateParams, FacebookFactory, profile) {
+    //https://www.npmjs.com/package/angular-facebook-factory
+    FacebookFactory.init({
+      appId: '229902130507040'
+    });
 
-  .run(['$rootScope', '$state', '$stateParams',
-    function($rootScope, $state, $stateParams, profile) {
-      $rootScope.profile = profile;
-      $rootScope.$state = $state;
-      $rootScope.$stateParams = $stateParams;
-    }
-  ])
+    $rootScope.profile = profile;
+    $rootScope.$state = $state;
+    $rootScope.$stateParams = $stateParams;
+  })

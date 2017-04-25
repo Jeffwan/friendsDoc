@@ -16,8 +16,8 @@
 // In this case it is a simple value service.
 angular.module('myApp.services')
   // A RESTful factory for retreiving contacts from 'contacts.json'
-  .factory('authentication', ['$rootScope', '$q', 'Facebook', '$state', '$store',
-    function($rootScope, $q, Facebook, $state, $store) {
+  .factory('authentication', ['$rootScope', '$q', 'FacebookFactory', '$state', '$store',
+    function($rootScope, $q, FacebookFactory, $state, $store) {
       $rootScope.profile = {};
 
       // use localStorage to store accessToken and user profile
@@ -31,7 +31,7 @@ angular.module('myApp.services')
       }
 
       function login() {
-        Facebook.login(function(response) {
+        FacebookFactory.auth(function(response) {
           if (response.status == 'connected') {
             $rootScope.authentication = response.authResponse;
             $rootScope.logged = true;
@@ -47,7 +47,7 @@ angular.module('myApp.services')
       };
 
       function logout() {
-        Facebook.logout(function(response) {
+        FacebookFactory.logout(function(response) {
           // Do something with response. Don't forget here you are on Facebook scope so use $scope.$apply
           $rootScope.$apply(function() {
             $rootScope.authentication = null;
@@ -72,7 +72,9 @@ angular.module('myApp.services')
 
       function getMe() {
         var deferred = $q.defer();
-        Facebook.api('/me?fields=hometown,education,name,location,gender,picture', function(response) {
+        Facebook.api('/me' {
+          fields: 'hometown,education,name,location,gender,picture'
+        }, function(response) {
           $rootScope.$apply(function() {
             $rootScope.profile = response;
             deferred.resolve(response);
