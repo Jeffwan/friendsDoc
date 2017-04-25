@@ -4,6 +4,7 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var fileServer   = require('serve-static');
 
 var index = require('./routes/index');
 var users = require('./routes/users');
@@ -20,10 +21,22 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'app')));
+// app.use(express.static(path.join(__dirname, 'public')));
+app.use('/javascripts', express.static(path.join(__dirname, 'javascripts')));
+app.use('/libraries', express.static(path.join(__dirname, 'libraries')));
+app.use('/stylesheets', express.static(path.join(__dirname, 'stylesheets')));
+app.use('/node_modules', express.static(path.join(__dirname, 'node_modules')));
+app.use('/images', express.static(path.join(__dirname, 'images')));
 
-app.use('/', index);
+
+app.use('/index', index);
 app.use('/users', users);
+
+// Handle Angular Routes in last step
+app.use(function (req, res) {
+  res.sendFile(path.join(__dirname, 'public/index.html'));
+});
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

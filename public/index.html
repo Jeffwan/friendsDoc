@@ -1,15 +1,15 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en" ng-app="myApp">
 <head>
-  <meta charset="utf-8">
+  <!-- <meta charset="utf-8"> -->
+  <meta content="utf-8" http-equiv="encoding">
   <title>FriendsDoc</title>
-  <link rel="stylesheet" href="../public/components/bootstrap-css/css/bootstrap.min.css"/>
-  <link rel="stylesheet" href="../public/components/bootstrap-css/css/bootstrap-responsive.min.css"/>
-  <link rel="stylesheet" href="css/app.css"/>
-  <link rel="stylesheet" href="css/custom.css"/>
-  <link rel="stylesheet" href="css/carousel.css" >
-  <link rel="stylesheet" href="css/docs.css" >
-  <link rel="stylesheet" href="../public/components/nvd3/nv.d3.min.css"/>
+  <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css"/>
+  <link rel="stylesheet" href="../node_modules/nvd3/build/nv.d3.min.css"/>
+  <link rel="stylesheet" href="stylesheets/app.css"/>
+  <!-- <link rel="stylesheet" href="stylesheets/custom.css"/>
+  <link rel="stylesheet" href="stylesheets/docs.css" > -->
+
 
 </head>
 <body>
@@ -17,8 +17,6 @@
   <div class="navbar navbar-fixed-top">
     <div class="navbar-inner">
       <div class="container">
-
-
         <div class="nav-collapse collapse">
           <ul class="nav">
 
@@ -123,39 +121,38 @@
 
   <!--Google Map Chart-->
   <script type='text/javascript' src='https://www.google.com/jsapi'></script>
-  <!--<script src="../public/components/jquery/jquery.min.js"></script>-->
-  <!--<script src="../public/components/bootstrap-css/js/bootstrap.min.js"></script>-->
-  <!--<script src="../public/components/angular/angular.min.js"></script>-->
-  <script src="lib/jquery-1.10.2.min.js"></script>
-  <script src="lib/bootstrap.min.js"></script>
-  <script src="lib/angular/angular.js"></script>
-  <script src="lib/angularUI/angular-ui-router.js"></script>
-  <script src="lib/angularUI/ui-bootstrap-tpls-0.6.0.min.js"></script>
-  <!--<script src="../public/components/angular-ui-router/lib/angular-1.0.6.js"></script>-->
-  <!--<script src="../public/components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>-->
-  <script src="../public/components/angular-facebook/lib/angular-facebook.js"></script>
 
-  <!--sex chart-->
-  <script src="../public/components/d3/d3.v2.min.js"></script>
-  <script src="../public/components/nvd3/nv.d3.min.js"></script>
+  <!--Required JavaScript Libraries-->
+  <script src="../node_modules/jquery/dist/jquery.min.js"></script>
+  <script src="../node_modules/bootstrap/dist/js/bootstrap.js"></script>
+  <script src="../node_modules/angular/angular.js"></script>
+  <script src="../node_modules/angular-ui-bootstrap/dist/ui-bootstrap.js"></script>
+  <script src="../node_modules/angular-ui-bootstrap/dist/ui-bootstrap-tpls.js"></script>
+  <script src="../node_modules/angular-ui-router/release/angular-ui-router.js"></script>
+  <!-- <script src="../public/components/angular-facebook/lib/angular-facebook.js"></script> -->
 
+  <!--Sex Chart-->
+  <!-- <script src="../node_modules/nvd3/build/nv.d3.min.js"></script> -->
+  <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+  <!-- <script src="../node_modules/d3/d3.min.js"></script> -->
 
-  <script src="js/app.js"></script>
-  <script src="js/routes.js"></script>
-  <script src="js/services/services.js"></script>
-  <script src="js/services/authentication.js"></script>
-  <script src="js/services/facebookapi.js"></script>
-  <script src="js/services/localStorage.js"></script>
-  <script src="js/controllers/controllers.js"></script>
-  <script src="js/controllers/authenticationCtrl.js"></script>
-  <script src="js/controllers/carouseDemoCtrl.js"></script>
-  <script src="js/controllers/datepickerDemoCtrl.js"></script>
-  <script src="js/controllers/dropdownCtrl.js"></script>
-  <script src="js/controllers/dashboardCtrl.js"></script>
-  <script src="js/controllers/footerCtrl.js"></script>
+  <!--Angular Components-->
+  <script type="javascript" src="javascripts/app.js"></script>
+  <script type="javascript" src="javascripts/routes.js"></script>
+  <script type="javascript" src="javascripts/services/services.js"></script>
+  <script type="javascript" src="javascripts/services/authentication.js"></script>
+  <script type="javascript" src="javascripts/services/facebookapi.js"></script>
+  <script type="javascript" src="javascripts/services/localStorage.js"></script>
+  <script type="javascript" src="javascripts/controllers/controllers.js"></script>
+  <script type="javascript" src="javascripts/controllers/authenticationCtrl.js"></script>
+  <script type="javascript" src="javascripts/controllers/carouseDemoCtrl.js"></script>
+  <script type="javascript" src="javascripts/controllers/datepickerDemoCtrl.js"></script>
+  <script type="javascript" src="javascripts/controllers/dropdownCtrl.js"></script>
+  <script type="javascript" src="javascripts/controllers/dashboardCtrl.js"></script>
+  <script type="javascript" src="javascripts/controllers/footerCtrl.js"></script>
 
   <!--<script src="js/services/facebookAPI.js"></script>-->
-  <script src="js/filters.js"></script>
-  <script src="js/directive.js"></script>
+  <script type="javascript" src="javascripts/filters.js"></script>
+  <script type="javascript" src="javascripts/directive.js"></script>
 </body>
 </html>
