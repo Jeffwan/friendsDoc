@@ -99,7 +99,7 @@ your browser.
 (Since limited time for this project, test will be added later)
 ### Running unit tests
 
-I will use [jasmine](http://pivotal.github.com/jasmine/) and
+I will use [jasmine](https://jasmine.github.io/) and
 [Karma](http://karma-runner.github.io) for this project's unit tests/specs later if I have time, or I will keep same.
 
 Requires [node.js](http://nodejs.org/), Karma (`sudo npm install -g karma`) and a local
